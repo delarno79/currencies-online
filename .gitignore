@@ -37,3 +37,8 @@ next-env.d.ts
 
 # Requirments folder
 /requirements
+
+# Agents and VS Code settings
+/.agents/
+/.vscode/
+/skills-lock.json
