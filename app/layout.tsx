@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 
 import "./globals.css"
+import Script from "next/script"
 import { Footer } from "@/app/_components/footer"
 import { Header } from "@/app/_components/header"
 import { MobileNav } from "@/app/_components/mobile-nav"
@@ -41,6 +42,19 @@ export default function RootLayout({
       )}
     >
       <body>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-4C91RK4QF4"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-4C91RK4QF4');
+          `}
+        </Script>
         <ThemeProvider>
           <NuqsAdapter>
             <div className="flex min-h-screen flex-col bg-background pb-16 text-foreground selection:bg-primary/20 md:pb-0">
