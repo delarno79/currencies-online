@@ -12,11 +12,11 @@ import { getCachedCountries, getCachedCurrencies } from "@/lib/data-cache"
 
 export const metadata: Metadata = {
   title:
-    "Currencies.online | World's Currency Directory & Exchange Rates Database",
+    "Currencies.global | World's Currency Directory & Exchange Rates Database",
   description:
     "Search any country's official currency, currency code, symbol, and live exchange rates. Your ultimate world currency directory and exchange rate database.",
   alternates: {
-    canonical: "https://currencies.online",
+    canonical: "https://currencies.global",
   },
 }
 

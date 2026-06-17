@@ -18,9 +18,9 @@ import {
 } from "@/lib/data-cache"
 
 export const metadata: Metadata = {
-  title: "HTML Sitemap | Currencies.online",
+  title: "HTML Sitemap | Currencies.global",
   description:
-    "Browse the complete sitemap index of Currencies.online to find country directories, currency analyses, exchange rates, calculators, and articles.",
+    "Browse the complete sitemap index of Currencies.global to find country directories, currency analyses, exchange rates, calculators, and articles.",
 }
 
 export default async function SitemapPage() {
@@ -42,7 +42,7 @@ export default async function SitemapPage() {
         </h1>
         <p className="mx-auto max-w-xl text-muted-foreground text-sm">
           Quick directory index of all public routes and pages hosted on the
-          Currencies.online database.
+          Currencies.global database.
         </p>
       </div>
 

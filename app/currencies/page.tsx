@@ -5,7 +5,7 @@ import { getCachedCountries, getCachedCurrencies } from "@/lib/data-cache"
 import { CurrenciesList } from "./_components/currencies-list"
 
 export const metadata: Metadata = {
-  title: "World Currencies Directory and Codes | Currencies.online",
+  title: "World Currencies Directory and Codes | Currencies.global",
   description:
     "Browse the complete database of world currencies. Access official ISO currency codes, symbols, countries using them, and live exchange rates.",
 }

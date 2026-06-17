@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://currencies.online/sitemap.xml
+Sitemap: https://currencies.global/sitemap.xml

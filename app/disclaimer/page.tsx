@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { Card, CardContent } from "@/components/ui/card"
 
 export const metadata: Metadata = {
-  title: "Disclaimer | Currencies.online",
+  title: "Disclaimer | Currencies.global",
   description:
-    "Read the financial and general disclaimer of Currencies.online.",
+    "Read the financial and general disclaimer of Currencies.global.",
 }
 
 export default function DisclaimerPage() {
@@ -26,7 +26,7 @@ export default function DisclaimerPage() {
           </h2>
           <p>
             The content, converters, graphs, and directories on
-            Currencies.online are provided for general informational purposes
+            Currencies.global are provided for general informational purposes
             only. None of the information on this website constitutes financial,
             investment, or legal advice.
           </p>
@@ -41,7 +41,7 @@ export default function DisclaimerPage() {
             2. Limitation of Liability
           </h2>
           <p>
-            In no event shall Currencies.online or its partners be held liable
+            In no event shall Currencies.global or its partners be held liable
             for any damages (including, without limitation, damages for loss of
             capital, data, or profit) arising out of the use or inability to use
             the calculators or database, even if notified of the possibility of

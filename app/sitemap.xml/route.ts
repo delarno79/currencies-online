@@ -6,7 +6,7 @@ import {
   getCachedExchangeRates,
 } from "@/lib/data-cache"
 
-const BASE_URL = "https://currencies.online"
+const BASE_URL = "https://currencies.global"
 
 export async function GET() {
   const [countries, currencies, exchangeRatesMatrix] = await Promise.all([

@@ -1,4 +1,4 @@
-# Currencies.online
+# Currencies.global
 
 > **World's Currency Directory & Exchange Rates Database**  
 > A full-featured, SEO-optimized currency information platform built with Next.js 16.
@@ -12,7 +12,7 @@
 
 ## Overview
 
-Currencies.online is a directory-style website providing:
+Currencies.global is a directory-style website providing:
 
 - **Live exchange rates** for 160+ world currencies
 - **Currency converter** with real-time data

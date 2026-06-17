@@ -111,7 +111,7 @@ export function Footer() {
             <Link href="/" className="inline-block">
               <Image
                 src="/logo-2.png"
-                alt="Currencies.online Logo"
+                alt="Currencies.global Logo"
                 width={180}
                 height={40}
                 className="h-8 w-auto brightness-0 invert"
@@ -305,7 +305,7 @@ export function Footer() {
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-slate-800 border-t pt-8 text-slate-500 text-xs md:flex-row">
           <div className="flex items-center gap-1">
             <Copyright />
-            <span>Currencies.online. All rights reserved.</span>
+            <span>Currencies.global. All rights reserved.</span>
           </div>
 
           <div className="text-slate-500">

@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { Card, CardContent } from "@/components/ui/card"
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Currencies.online",
+  title: "Privacy Policy | Currencies.global",
   description:
-    "Read the Privacy Policy of Currencies.online to understand how we collect, use, and safeguard your details.",
+    "Read the Privacy Policy of Currencies.global to understand how we collect, use, and safeguard your details.",
 }
 
 export default function PrivacyPage() {
@@ -22,7 +22,7 @@ export default function PrivacyPage() {
       <Card className="border border-border shadow-sm">
         <CardContent className="prose dark:prose-invert max-w-none space-y-6 p-6 text-muted-foreground text-sm leading-relaxed sm:p-8">
           <p>
-            At Currencies.online, we prioritize the privacy of our visitors.
+            At Currencies.global, we prioritize the privacy of our visitors.
             This Privacy Policy document outlines the types of information we
             collect and how we use it.
           </p>
@@ -31,7 +31,7 @@ export default function PrivacyPage() {
             1. Information Collection
           </h2>
           <p>
-            Currencies.online does not require registration. We do not collect
+            Currencies.global does not require registration. We do not collect
             personally identifiable details unless you fill out the Contact Us
             form directly. Standard server logs (IP address, browser type,
             referral URLs, access timestamps) are collected automatically for

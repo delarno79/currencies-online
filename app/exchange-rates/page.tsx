@@ -5,11 +5,11 @@ import { getCachedCurrencies } from "@/lib/data-cache"
 import { RatesTable } from "./_components/rates-table"
 
 export const metadata: Metadata = {
-  title: "Live Foreign Exchange Rates Database | Currencies.online",
+  title: "Live Foreign Exchange Rates Database | Currencies.global",
   description:
     "Access live interbank foreign exchange rates. Calculate dynamic cross rates and view daily percentage fluctuations for major global currencies.",
   alternates: {
-    canonical: "https://currencies.online/exchange-rates",
+    canonical: "https://currencies.global/exchange-rates",
   },
 }
 

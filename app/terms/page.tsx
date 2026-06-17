@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { Card, CardContent } from "@/components/ui/card"
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Currencies.online",
+  title: "Terms of Service | Currencies.global",
   description:
-    "Read the Terms of Service of Currencies.online to understand the conditions of website usage.",
+    "Read the Terms of Service of Currencies.global to understand the conditions of website usage.",
 }
 
 export default function TermsPage() {
@@ -22,7 +22,7 @@ export default function TermsPage() {
       <Card className="border border-border shadow-sm">
         <CardContent className="prose dark:prose-invert max-w-none space-y-6 p-6 text-muted-foreground text-sm leading-relaxed sm:p-8">
           <p>
-            Welcome to Currencies.online. By accessing or using our website, you
+            Welcome to Currencies.global. By accessing or using our website, you
             agree to comply with and be bound by the following terms and
             conditions.
           </p>
@@ -51,7 +51,7 @@ export default function TermsPage() {
               </li>
               <li>
                 Decompile or reverse-engineer any component of
-                Currencies.online.
+                Currencies.global.
               </li>
             </ul>
           </p>
@@ -61,7 +61,7 @@ export default function TermsPage() {
           </h2>
           <p>
             The currency rates and country directories are provided on an
-            'as-is' basis. Currencies.online makes no warranties, expressed or
+            'as-is' basis. Currencies.global makes no warranties, expressed or
             implied, regarding exchange rate precision or availability.
           </p>
 
@@ -69,7 +69,7 @@ export default function TermsPage() {
             4. Governing Law
           </h2>
           <p>
-            Any claim relating to Currencies.online shall be governed by local
+            Any claim relating to Currencies.global shall be governed by local
             regulations without regard to conflict of law provisions.
           </p>
         </CardContent>

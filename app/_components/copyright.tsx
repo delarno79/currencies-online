@@ -9,5 +9,5 @@ export function Copyright() {
     setYear(new Date().getFullYear())
   }, [])
 
-  return <span>&copy; {year} Currencies.online. All rights reserved.</span>
+  return <span>&copy; {year} Currencies.global. All rights reserved.</span>
 }

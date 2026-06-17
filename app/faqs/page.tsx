@@ -8,16 +8,16 @@ import {
 } from "@/components/ui/accordion"
 
 export const metadata: Metadata = {
-  title: "Frequently Asked Questions | Currencies.online",
+  title: "Frequently Asked Questions | Currencies.global",
   description:
-    "Browse the general FAQs about Currencies.online. Learn about our database compilation, calculation methods, and reference rates accuracy.",
+    "Browse the general FAQs about Currencies.global. Learn about our database compilation, calculation methods, and reference rates accuracy.",
 }
 
 const faqList = [
   {
-    question: "What is Currencies.online?",
+    question: "What is Currencies.global?",
     answer:
-      "Currencies.online is a comprehensive, automated world currency directory and exchange rate database. We resolve global queries regarding flags, populations, capitals, currency codes, and symbols, alongside live-like exchange conversions.",
+      "Currencies.global is a comprehensive, automated world currency directory and exchange rate database. We resolve global queries regarding flags, populations, capitals, currency codes, and symbols, alongside live-like exchange conversions.",
   },
   {
     question: "How frequently is the exchange rate data updated?",
@@ -30,14 +30,14 @@ const faqList = [
       "All rates are derived using the US Dollar (USD) reference rates. For any pair A-to-B, the calculation is computed as: (Rate B vs USD) / (Rate A vs USD). This ensures mathematical integrity and consistency across all directory modules.",
   },
   {
-    question: "Can I use Currencies.online for commercial trading?",
+    question: "Can I use Currencies.global for commercial trading?",
     answer:
       "No. The information, calculators, and rate metrics provided on this site are for reference and educational purposes only. They do not constitute financial advice. For commercial operations, consult licensed brokers.",
   },
   {
-    question: "How can I advertise on Currencies.online?",
+    question: "How can I advertise on Currencies.global?",
     answer:
-      "Our layouts are pre-optimized for Google AdSense display ads (immediately below search heroes and at page footers). For custom integration campaigns or partnership proposals, contact us at partners@currencies.online.",
+      "Our layouts are pre-optimized for Google AdSense display ads (immediately below search heroes and at page footers). For custom integration campaigns or partnership proposals, contact us at partners@currencies.global.",
   },
 ]
 

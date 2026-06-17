@@ -4,7 +4,7 @@ import { Adsense } from "@/app/_components/adsense"
 import { BlogList } from "./_components/blog-list"
 
 export const metadata: Metadata = {
-  title: "Currency & Economic Blog | Currencies.online",
+  title: "Currency & Economic Blog | Currencies.global",
   description:
     "Read expert analyses on world currencies, hyperinflation, currency strength benchmarks, and global economic trends.",
 }
@@ -20,7 +20,7 @@ export default function BlogPage() {
             Insights & Analysis
           </span>
           <h1 className="font-extrabold font-heading text-3xl text-foreground tracking-tight sm:text-4xl">
-            Currencies.online Hub Blog
+            Currencies.global Hub Blog
           </h1>
           <p className="mt-2 max-w-2xl text-muted-foreground text-sm sm:text-base">
             Informative reviews, market updates, and educational guides covering

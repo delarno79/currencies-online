@@ -11,10 +11,10 @@ import { cn } from "@/lib/utils"
 
 export const metadata: Metadata = {
   title:
-    "Currencies.online | World's Currency Directory & Exchange Rates Database",
+    "Currencies.global | World's Currency Directory & Exchange Rates Database",
   description:
     "Search any country's official currency, currency code, symbol, and live exchange rates. Your ultimate world currency directory and exchange rate database.",
-  metadataBase: new URL("https://currencies.online"),
+  metadataBase: new URL("https://currencies.global"),
 }
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })

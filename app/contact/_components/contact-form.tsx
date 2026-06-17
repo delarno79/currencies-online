@@ -38,7 +38,7 @@ export function ContactForm() {
           Get In Touch
         </span>
         <h1 className="font-extrabold font-heading text-3xl text-foreground tracking-tight sm:text-4xl">
-          Contact Currencies.online
+          Contact Currencies.global
         </h1>
         <p className="mx-auto max-w-2xl text-muted-foreground text-sm leading-relaxed sm:text-base">
           Have questions about our database, advertisements, or suggestions?
@@ -60,7 +60,7 @@ export function ContactForm() {
                   <Mail className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
                   <div>
                     <h4 className="font-bold text-foreground">Email Support</h4>
-                    <p className="mt-1">support@currencies.online</p>
+                    <p className="mt-1">support@currencies.global</p>
                     <p className="mt-0.5 text-[10px] text-muted-foreground/60">
                       Average reply time: 24 hours
                     </p>
@@ -73,7 +73,7 @@ export function ContactForm() {
                     <h4 className="font-bold text-foreground">
                       Advertising Enquiries
                     </h4>
-                    <p className="mt-1">partners@currencies.online</p>
+                    <p className="mt-1">partners@currencies.global</p>
                   </div>
                 </div>
 

@@ -3,9 +3,9 @@ import type { Metadata } from "next"
 import { Card, CardContent } from "@/components/ui/card"
 
 export const metadata: Metadata = {
-  title: "About Us | Currencies.online",
+  title: "About Us | Currencies.global",
   description:
-    "Learn about the mission, data architecture, and team behind Currencies.online, the premier currency directory and database.",
+    "Learn about the mission, data architecture, and team behind Currencies.global, the premier currency directory and database.",
 }
 
 export default function AboutPage() {
@@ -17,10 +17,10 @@ export default function AboutPage() {
           Our Profile
         </span>
         <h1 className="font-extrabold font-heading text-3xl text-foreground tracking-tight sm:text-4xl">
-          About Currencies.online
+          About Currencies.global
         </h1>
         <p className="mx-auto max-w-2xl text-muted-foreground text-sm leading-relaxed sm:text-base">
-          Currencies.online is designed to be the world's most accessible
+          Currencies.global is designed to be the world's most accessible
           currency directory and exchange rate database, bridging search queries
           with accurate statistics.
         </p>
@@ -34,7 +34,7 @@ export default function AboutPage() {
             navigating complex financial terminals. Whether you want to know
             what currency is used in Japan, check the symbol of the Brazilian
             Real, or analyze the 30-day volatility of the British Pound,
-            Currencies.online provides clean, readable information in under 50
+            Currencies.global provides clean, readable information in under 50
             milliseconds.
           </p>
 

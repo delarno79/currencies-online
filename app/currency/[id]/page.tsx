@@ -26,17 +26,17 @@ export async function generateMetadata(
 
   if (!currency) {
     return {
-      title: "Currency Not Found | Currencies.online",
+      title: "Currency Not Found | Currencies.global",
       description:
         "The requested currency information page could not be located in our database.",
     }
   }
 
   return {
-    title: `${currency.name} (${currency.code}) Overview and Exchange Rates | Currencies.online`,
+    title: `${currency.name} (${currency.code}) Overview and Exchange Rates | Currencies.global`,
     description: `Official currency overview for ${currency.name} (${currency.code}). See active symbol (${currency.symbol}), countries using it, live USD conversion rates, 30-day historical chart, and detailed FAQs.`,
     alternates: {
-      canonical: `https://currencies.online/currency/${currency.id}`,
+      canonical: `https://currencies.global/currency/${currency.id}`,
     },
   }
 }

@@ -26,7 +26,7 @@ export async function generateMetadata(
 
   if (!parsed) {
     return {
-      title: "Exchange Rate Pair Not Found | Currencies.online",
+      title: "Exchange Rate Pair Not Found | Currencies.global",
       description:
         "The requested currency exchange rate pair could not be resolved.",
     }
@@ -36,10 +36,10 @@ export async function generateMetadata(
   const rate = toCurrency.usdRate / fromCurrency.usdRate
 
   return {
-    title: `${fromCurrency.code} to ${toCurrency.code} Exchange Rate - Live Chart | Currencies.online`,
+    title: `${fromCurrency.code} to ${toCurrency.code} Exchange Rate - Live Chart | Currencies.global`,
     description: `Analyze ${fromCurrency.name} to ${toCurrency.name} (${fromCurrency.code} to ${toCurrency.code}) conversion rates. View current rate of ${rate.toFixed(4)}, daily percent trends, interactive 30-day line graphs, and conversion lookup tables.`,
     alternates: {
-      canonical: `https://currencies.online/exchange-rates/${pair}`,
+      canonical: `https://currencies.global/exchange-rates/${pair}`,
     },
   }
 }

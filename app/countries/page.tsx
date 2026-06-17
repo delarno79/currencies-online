@@ -7,7 +7,7 @@ import { CountriesList } from "./_components/countries-list"
 import { CountriesListSkeleton } from "./_components/countries-list-skelenton"
 
 export const metadata: Metadata = {
-  title: "World Countries and Currencies Directory | Currencies.online",
+  title: "World Countries and Currencies Directory | Currencies.global",
   description:
     "Browse the complete directory of global countries. Find capital cities, population figures, official flags, currency codes, and live exchange rates.",
 }

@@ -21,17 +21,17 @@ export async function generateMetadata(
 
   if (!country) {
     return {
-      title: "Country Not Found | Currencies.online",
+      title: "Country Not Found | Currencies.global",
       description:
         "The requested country information page could not be located in our directory.",
     }
   }
 
   return {
-    title: `${country.name} Currency, Flag, and USD Exchange Rate | Currencies.online`,
+    title: `${country.name} Currency, Flag, and USD Exchange Rate | Currencies.global`,
     description: `Official currency information for ${country.name}. Find capital city (${country.capital}), population (${country.population}), flag (${country.flag}), official currency code (${country.currencyCode}), and live USD exchange rates.`,
     alternates: {
-      canonical: `https://currencies.online/country/${country.id}`,
+      canonical: `https://currencies.global/country/${country.id}`,
     },
   }
 }

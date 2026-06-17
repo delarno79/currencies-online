@@ -11,11 +11,11 @@ import { ComparisonDashboard } from "./_components/comparison-dashboard"
 
 export const metadata: Metadata = {
   title:
-    "Compare Countries, Currencies, and Exchange Rates | Currencies.online",
+    "Compare Countries, Currencies, and Exchange Rates | Currencies.global",
   description:
     "Compare world currencies, countries, and exchange rates side-by-side. Analyze currency strength, purchasing power indices, and inflation rates.",
   alternates: {
-    canonical: "https://currencies.online/compare",
+    canonical: "https://currencies.global/compare",
   },
 }
 

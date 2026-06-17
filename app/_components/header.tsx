@@ -65,7 +65,7 @@ export function Header() {
         <Link href="/" className="group flex shrink-0 items-center">
           <Image
             src="/logo-2.png"
-            alt="Currencies.online Logo"
+            alt="Currencies.global Logo"
             width={180}
             height={40}
             className="block h-9 w-auto shrink-0 object-contain md:hidden xl:block dark:brightness-0 dark:invert"
@@ -73,7 +73,7 @@ export function Header() {
           />
           <Image
             src="/logo-small.png"
-            alt="Currencies.online Logo"
+            alt="Currencies.global Logo"
             width={40}
             height={40}
             className="hidden h-9 w-auto shrink-0 object-contain md:block xl:hidden dark:brightness-0 dark:invert"
@@ -161,7 +161,7 @@ export function Header() {
                     <div className="flex h-8 w-8 items-center justify-center bg-primary text-primary-foreground">
                       <Coins className="h-4 w-4" />
                     </div>
-                    <span className="font-bold">Currencies.online</span>
+                    <span className="font-bold">Currencies.global</span>
                   </SheetTitle>
                 </SheetHeader>
                 <div className="flex flex-col gap-4 py-6">

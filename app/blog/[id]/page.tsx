@@ -20,14 +20,14 @@ export async function generateMetadata(
 
   if (!post) {
     return {
-      title: "Article Not Found | Currencies.online Blog",
+      title: "Article Not Found | Currencies.global Blog",
       description:
         "The requested blog article could not be located in our index.",
     }
   }
 
   return {
-    title: `${post.title} | Currencies.online Blog`,
+    title: `${post.title} | Currencies.global Blog`,
     description: post.summary,
   }
 }

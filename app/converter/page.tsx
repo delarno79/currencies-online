@@ -6,11 +6,11 @@ import { getCachedCountries, getCachedCurrencies } from "@/lib/data-cache"
 import { CalculatorWidget } from "./_components/calculator"
 
 export const metadata: Metadata = {
-  title: "Interactive Currency Converter Calculator | Currencies.online",
+  title: "Interactive Currency Converter Calculator | Currencies.global",
   description:
     "Convert any global currency instantly with our interactive calculator. Pre-fill conversion values, check daily rate fluctuations, and analyze trends.",
   alternates: {
-    canonical: "https://currencies.online/converter",
+    canonical: "https://currencies.global/converter",
   },
 }
 
