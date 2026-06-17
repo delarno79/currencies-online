@@ -62,23 +62,25 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-border border-b bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
-        <Link href="/" className="group flex shrink-0 items-center">
+        <Link href="/" className="group flex shrink-0 items-center gap-2">
+          {/* Globe Icon — used at all breakpoints */}
           <Image
-            src="/logo-2.png"
+            src="/logo-3-small.png"
             alt="Currencies.global Logo"
-            width={180}
-            height={40}
-            className="block h-9 w-auto shrink-0 object-contain md:hidden xl:block dark:brightness-0 dark:invert"
+            width={36}
+            height={36}
+            className="h-9 w-9 shrink-0 rounded-sm object-contain"
             priority
           />
-          <Image
-            src="/logo-small.png"
-            alt="Currencies.global Logo"
-            width={40}
-            height={40}
-            className="hidden h-9 w-auto shrink-0 object-contain md:block xl:hidden dark:brightness-0 dark:invert"
-            priority
-          />
+          {/* Brand text — visible on all screen sizes */}
+          <span className="flex items-baseline gap-0">
+            <span className="font-bold text-foreground text-xl tracking-tight">
+              Currencies
+            </span>
+            <span className="font-semibold text-[#5b9fc8] text-xl tracking-tight">
+              .global
+            </span>
+          </span>
         </Link>
 
         {/* Desktop Navigation */}

@@ -108,15 +108,24 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-6 xl:gap-12">
           {/* Column 1: Brand Info & Socials */}
           <div className="space-y-6 lg:col-span-2">
-            <Link href="/" className="inline-block">
+            <Link href="/" className="inline-flex items-center gap-2">
               <Image
-                src="/logo-2.png"
+                src="/logo-3-small.png"
                 alt="Currencies.global Logo"
-                width={180}
-                height={40}
-                className="h-8 w-auto brightness-0 invert"
+                width={32}
+                height={32}
+                className="h-8 w-8 shrink-0 rounded-sm object-contain"
               />
+              <span className="flex items-baseline gap-0">
+                <span className="font-bold text-lg text-white tracking-tight">
+                  Currencies
+                </span>
+                <span className="font-semibold text-[#7bbde0] text-lg tracking-tight">
+                  .global
+                </span>
+              </span>
             </Link>
+
             <p className="max-w-xs text-slate-400 text-xs leading-relaxed">
               The world's currency directory and exchange rate database. Find
               any country's currency, live exchange rates, converter, charts and
