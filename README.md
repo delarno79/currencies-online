@@ -243,7 +243,7 @@ See [`biome.json`](./biome.json) for linting/formatting rules.
 
 ## Deployment
 
-The project is designed to deploy on **Vercel** (recommended) or any Node.js-compatible platform.
+The project is designed to deploy on **Vercel**, **Hostinger** (using the Node.js Web App template), or any Node.js-compatible platform.
 
 ```bash
 # Build for production
