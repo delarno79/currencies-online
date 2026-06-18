@@ -1,6 +1,11 @@
 import { BookOpen } from "lucide-react"
 import type { Metadata } from "next"
+import { cacheLife, cacheTag } from "next/cache"
 import { Adsense } from "@/app/_components/adsense"
+import { blogs as hardcodedBlogs } from "@/lib/data"
+import { client } from "@/sanity/lib/client"
+import { allBlogsQuery } from "@/sanity/lib/queries"
+import type { SanityBlogPost } from "@/sanity/lib/types"
 import { BlogList } from "./_components/blog-list"
 
 export const metadata: Metadata = {
@@ -9,7 +14,19 @@ export const metadata: Metadata = {
     "Read expert analyses on world currencies, hyperinflation, currency strength benchmarks, and global economic trends.",
 }
 
-export default function BlogPage() {
+async function fetchSanityPosts(): Promise<SanityBlogPost[]> {
+  "use cache"
+  cacheLife("minutes")
+  cacheTag("blogs")
+  return client.fetch<SanityBlogPost[]>(allBlogsQuery)
+}
+
+export default async function BlogPage() {
+  const sanityPosts = await fetchSanityPosts()
+
+  // Show Sanity posts if available, otherwise fall back to hardcoded posts
+  const posts = sanityPosts.length > 0 ? sanityPosts : hardcodedBlogs
+
   return (
     <div className="container mx-auto max-w-[1440px] px-4 py-10 sm:px-6 lg:px-8">
       {/* Page Header */}
@@ -35,7 +52,7 @@ export default function BlogPage() {
       </div>
 
       {/* Main blog content list */}
-      <BlogList />
+      <BlogList posts={posts} />
 
       {/* Bottom Ad Spot */}
       <div className="mt-12">

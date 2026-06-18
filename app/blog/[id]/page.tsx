@@ -1,56 +1,98 @@
+import { Suspense } from "react"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
+import { cacheLife, cacheTag } from "next/cache"
 import { Adsense } from "@/app/_components/adsense"
-import { blogs } from "@/lib/data"
+import { blogs as hardcodedBlogs } from "@/lib/data"
+import { client } from "@/sanity/lib/client"
+import { blogBySlugQuery } from "@/sanity/lib/queries"
+import type { SanityBlogPost } from "@/sanity/lib/types"
 import { BlogPostContent } from "./_components/blog-post-content"
 
-// Pre-render blog routes
-export async function generateStaticParams() {
-  return blogs.map((post) => ({
-    id: post.id,
-  }))
+async function fetchPost(slug: string): Promise<SanityBlogPost | null> {
+  "use cache"
+  cacheLife("minutes")
+  cacheTag("blogs", `blog-${slug}`)
+  return client.fetch<SanityBlogPost | null>(blogBySlugQuery, { slug })
 }
 
-// SEO Metadata builder
 export async function generateMetadata(
   props: PageProps<"/blog/[id]">
 ): Promise<Metadata> {
   const { id } = await props.params
-  const post = blogs.find((b) => b.id === id)
 
-  if (!post) {
+  // Try Sanity first
+  const sanityPost = await fetchPost(id)
+  if (sanityPost) {
     return {
-      title: "Article Not Found | Currencies.global Blog",
-      description:
-        "The requested blog article could not be located in our index.",
+      title: `${sanityPost.title} | Currencies.global Blog`,
+      description: sanityPost.summary,
     }
   }
 
+  // Fall back to hardcoded
+  const post = hardcodedBlogs.find((b) => b.id === id)
+  if (!post) {
+    return {
+      title: "Article Not Found | Currencies.global Blog",
+      description: "The requested blog article could not be located.",
+    }
+  }
   return {
     title: `${post.title} | Currencies.global Blog`,
     description: post.summary,
   }
 }
 
-export default async function BlogPostPage(props: PageProps<"/blog/[id]">) {
-  const { id } = await props.params
-  const post = blogs.find((b) => b.id === id)
+export default function BlogPostPage(props: PageProps<"/blog/[id]">) {
+  return (
+    <Suspense
+      fallback={
+        <div className="container mx-auto max-w-[1440px] px-4 py-20 text-center text-muted-foreground sm:px-6 lg:px-8">
+          Loading article...
+        </div>
+      }
+    >
+      <BlogPostPageContent params={props.params} />
+    </Suspense>
+  )
+}
 
-  if (!post) {
+async function BlogPostPageContent({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
+
+  // Try Sanity first
+  const sanityPost = await fetchPost(id)
+  if (sanityPost) {
+    return (
+      <div className="container mx-auto max-w-[1440px] px-4 py-10 sm:px-6 lg:px-8">
+        <div className="mb-8">
+          <Adsense slot="blog-post-top" format="horizontal" />
+        </div>
+        <BlogPostContent post={sanityPost} source="sanity" />
+        <div className="mt-12">
+          <Adsense slot="blog-post-bottom" format="horizontal" />
+        </div>
+      </div>
+    )
+  }
+
+  // Fall back to hardcoded
+  const hardcodedPost = hardcodedBlogs.find((b) => b.id === id)
+  if (!hardcodedPost) {
     notFound()
   }
 
   return (
     <div className="container mx-auto max-w-[1440px] px-4 py-10 sm:px-6 lg:px-8">
-      {/* Top Banner */}
       <div className="mb-8">
         <Adsense slot="blog-post-top" format="horizontal" />
       </div>
-
-      {/* Main Post details */}
-      <BlogPostContent post={post} />
-
-      {/* Bottom Banner */}
+      <BlogPostContent post={hardcodedPost} source="hardcoded" />
       <div className="mt-12">
         <Adsense slot="blog-post-bottom" format="horizontal" />
       </div>

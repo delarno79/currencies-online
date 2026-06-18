@@ -13,30 +13,46 @@ import { useMemo, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input as UiInput } from "@/components/ui/input"
-import { blogs } from "@/lib/data"
+import type { BlogPost } from "@/lib/data"
+import type { SanityBlogPost } from "@/sanity/lib/types"
 
-export function BlogList() {
+type AnyBlogPost = BlogPost | SanityBlogPost
+
+interface BlogListProps {
+  posts: AnyBlogPost[]
+}
+
+function formatDate(raw: string) {
+  const d = new Date(raw)
+  if (Number.isNaN(d.getTime())) return raw // already formatted e.g. "June 15, 2026"
+  return d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })
+}
+
+export function BlogList({ posts }: BlogListProps) {
   const [searchTerm, setSearchTerm] = useState("")
   const [activeCategory, setActiveCategory] = useState("All")
 
   const categories = useMemo(() => {
-    const set = new Set(blogs.map((b) => b.category))
+    const set = new Set(posts.map((b) => b.category))
     return ["All", ...Array.from(set)]
-  }, [])
+  }, [posts])
 
   const filteredBlogs = useMemo(() => {
-    return blogs.filter((b) => {
+    return posts.filter((b) => {
       const matchesSearch =
         b.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        b.summary.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        b.content.toLowerCase().includes(searchTerm.toLowerCase())
+        b.summary.toLowerCase().includes(searchTerm.toLowerCase())
 
       const matchesCategory =
         activeCategory === "All" || b.category === activeCategory
 
       return matchesSearch && matchesCategory
     })
-  }, [searchTerm, activeCategory])
+  }, [posts, searchTerm, activeCategory])
 
   return (
     <div className="space-y-8">
@@ -107,7 +123,7 @@ export function BlogList() {
                     <div className="flex items-center gap-4">
                       <span className="flex items-center gap-1">
                         <Calendar className="h-3.5 w-3.5 text-muted-foreground/60" />
-                        {post.date}
+                        {"date" in post ? post.date : formatDate((post as SanityBlogPost).publishedAt)}
                       </span>
                       <span className="flex items-center gap-1">
                         <User className="h-3.5 w-3.5 text-muted-foreground/60" />

@@ -7,16 +7,102 @@ import {
   TrendingUp,
 } from "lucide-react"
 import Link from "next/link"
+import { PortableText, type PortableTextComponents } from "@portabletext/react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { type BlogPost, blogs } from "@/lib/data"
+import type { SanityBlogPost } from "@/sanity/lib/types"
 
-interface BlogPostContentProps {
-  post: BlogPost
+/** Portable Text renderer components — maps Sanity block types to styled HTML */
+const portableTextComponents: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => (
+      <p className="mt-2 text-sm leading-relaxed sm:text-base">{children}</p>
+    ),
+    h2: ({ children }) => (
+      <h2 className="mt-8 font-bold font-heading text-xl text-foreground tracking-tight sm:text-2xl">
+        {children}
+      </h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="mt-6 font-bold font-heading text-base text-foreground sm:text-lg">
+        {children}
+      </h3>
+    ),
+    blockquote: ({ children }) => (
+      <blockquote className="my-4 border-primary border-l-4 pl-4 italic text-muted-foreground">
+        {children}
+      </blockquote>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="mt-2 list-disc space-y-1.5 pl-5 text-sm sm:text-base">
+        {children}
+      </ul>
+    ),
+    number: ({ children }) => (
+      <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-sm sm:text-base">
+        {children}
+      </ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => <li>{children}</li>,
+    number: ({ children }) => <li>{children}</li>,
+  },
+  marks: {
+    strong: ({ children }) => (
+      <strong className="font-bold text-foreground">{children}</strong>
+    ),
+    em: ({ children }) => <em className="italic">{children}</em>,
+    underline: ({ children }) => <span className="underline">{children}</span>,
+    link: ({ children, value }) => (
+      <a
+        href={value?.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary underline hover:opacity-80"
+      >
+        {children}
+      </a>
+    ),
+  },
+  types: {
+    image: ({ value }) =>
+      value?.asset ? (
+        // biome-ignore lint/performance/noImgElement: Sanity images, CDN URL
+        <img
+          src={value.asset.url}
+          alt={value.alt ?? ""}
+          className="my-6 w-full rounded-md"
+        />
+      ) : null,
+  },
 }
 
-export function BlogPostContent({ post }: BlogPostContentProps) {
-  // Find other posts for recommendation
+function formatDate(raw: string) {
+  const d = new Date(raw)
+  if (Number.isNaN(d.getTime())) return raw
+  return d.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })
+}
+
+interface BlogPostContentProps {
+  post: BlogPost | SanityBlogPost
+  source: "hardcoded" | "sanity"
+}
+
+export function BlogPostContent({ post, source }: BlogPostContentProps) {
+  const displayDate =
+    source === "sanity"
+      ? formatDate((post as SanityBlogPost).publishedAt)
+      : (post as BlogPost).date
+
+  // For recommendations sidebar, use hardcoded posts
   const otherPosts = blogs.filter((b) => b.id !== post.id).slice(0, 2)
 
   return (
@@ -47,7 +133,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
                 </span>
                 <span className="flex items-center gap-1">
                   <Calendar className="h-3.5 w-3.5" />
-                  {post.date}
+                  {displayDate}
                 </span>
                 <span className="flex items-center gap-1">
                   <Clock className="h-3.5 w-3.5" />
@@ -78,12 +164,23 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
                 </div>
               </div>
 
-              {/* HTML Content rendering with stylized classes */}
-              <div
-                className="prose dark:prose-invert prose-h3:mt-6 prose-p:mt-2 max-w-none prose-ul:list-disc prose-ul:space-y-1.5 space-y-5 prose-ul:pl-5 prose-headings:font-bold prose-headings:font-heading prose-strong:font-bold prose-h3:text-base prose-headings:text-foreground prose-strong:text-foreground text-muted-foreground text-sm leading-relaxed prose-h3:sm:text-lg sm:text-base"
-                // biome-ignore lint/security/noDangerouslySetInnerHtml: static database contents are safe
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              />
+              {/* Content */}
+              <div className="text-muted-foreground">
+                {source === "sanity" ? (
+                  <PortableText
+                    value={(post as SanityBlogPost).content}
+                    components={portableTextComponents}
+                  />
+                ) : (
+                  <div
+                    className="prose dark:prose-invert prose-h3:mt-6 prose-p:mt-2 max-w-none prose-ul:list-disc prose-ul:space-y-1.5 space-y-5 prose-ul:pl-5 prose-headings:font-bold prose-headings:font-heading prose-strong:font-bold prose-h3:text-base prose-headings:text-foreground prose-strong:text-foreground text-sm leading-relaxed prose-h3:sm:text-lg sm:text-base"
+                    // biome-ignore lint/security/noDangerouslySetInnerHtml: static hardcoded content is safe
+                    dangerouslySetInnerHTML={{
+                      __html: (post as BlogPost).content,
+                    }}
+                  />
+                )}
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -130,23 +227,23 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
             </h2>
 
             <div className="space-y-4">
-              {otherPosts.map((post) => (
+              {otherPosts.map((rec) => (
                 <Link
-                  key={post.id}
-                  href={`/blog/${post.id}`}
+                  key={rec.id}
+                  href={`/blog/${rec.id}`}
                   className="group block"
                 >
                   <Card className="border border-border transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
                     <CardContent className="space-y-2 p-4">
                       <span className="inline-flex items-center bg-primary/10 px-2 py-0.5 font-semibold text-[10px] text-primary">
-                        {post.category}
+                        {rec.category}
                       </span>
                       <h3 className="line-clamp-2 font-bold text-foreground text-xs leading-snug transition-colors group-hover:text-primary">
-                        {post.title}
+                        {rec.title}
                       </h3>
                       <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
                         <Calendar className="h-3 w-3" />
-                        <span>{post.date}</span>
+                        <span>{rec.date}</span>
                       </div>
                     </CardContent>
                   </Card>
