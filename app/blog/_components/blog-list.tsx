@@ -123,7 +123,9 @@ export function BlogList({ posts }: BlogListProps) {
                     <div className="flex items-center gap-4">
                       <span className="flex items-center gap-1">
                         <Calendar className="h-3.5 w-3.5 text-muted-foreground/60" />
-                        {"date" in post ? post.date : formatDate((post as SanityBlogPost).publishedAt)}
+                        {"date" in post
+                          ? post.date
+                          : formatDate((post as SanityBlogPost).publishedAt)}
                       </span>
                       <span className="flex items-center gap-1">
                         <User className="h-3.5 w-3.5 text-muted-foreground/60" />

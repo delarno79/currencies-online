@@ -1,7 +1,7 @@
-import { Suspense } from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
+import { Suspense } from "react"
 
 import "./globals.css"
 import Script from "next/script"
@@ -59,7 +59,11 @@ export default function RootLayout({
         <ThemeProvider>
           <NuqsAdapter>
             <div className="flex min-h-screen flex-col bg-background pb-16 text-foreground selection:bg-primary/20 md:pb-0">
-              <Suspense fallback={<div className="h-16 border-b border-border bg-background" />}>
+              <Suspense
+                fallback={
+                  <div className="h-16 border-border border-b bg-background" />
+                }
+              >
                 <Header />
               </Suspense>
               <main className="flex-1">{children}</main>

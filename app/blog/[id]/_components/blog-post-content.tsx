@@ -1,3 +1,4 @@
+import { PortableText, type PortableTextComponents } from "@portabletext/react"
 import {
   ArrowLeft,
   BookOpen,
@@ -7,7 +8,6 @@ import {
   TrendingUp,
 } from "lucide-react"
 import Link from "next/link"
-import { PortableText, type PortableTextComponents } from "@portabletext/react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { type BlogPost, blogs } from "@/lib/data"
@@ -20,7 +20,7 @@ const portableTextComponents: PortableTextComponents = {
       <p className="mt-2 text-sm leading-relaxed sm:text-base">{children}</p>
     ),
     h2: ({ children }) => (
-      <h2 className="mt-8 font-bold font-heading text-xl text-foreground tracking-tight sm:text-2xl">
+      <h2 className="mt-8 font-bold font-heading text-foreground text-xl tracking-tight sm:text-2xl">
         {children}
       </h2>
     ),
@@ -30,7 +30,7 @@ const portableTextComponents: PortableTextComponents = {
       </h3>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="my-4 border-primary border-l-4 pl-4 italic text-muted-foreground">
+      <blockquote className="my-4 border-primary border-l-4 pl-4 text-muted-foreground italic">
         {children}
       </blockquote>
     ),

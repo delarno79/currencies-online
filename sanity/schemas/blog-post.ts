@@ -15,7 +15,8 @@ export const blogPost = defineType({
       name: "slug",
       title: "Slug (URL)",
       type: "slug",
-      description: "Auto-generated from title. This becomes the URL of the post.",
+      description:
+        "Auto-generated from title. This becomes the URL of the post.",
       options: { source: "title", maxLength: 96 },
       validation: (Rule) => Rule.required(),
     }),
