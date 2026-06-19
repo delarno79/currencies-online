@@ -259,4 +259,4 @@ pnpm start
 
 ## License
 
-Private project — all rights reserved.
+@Currencies.global Private project — all rights reserved.
