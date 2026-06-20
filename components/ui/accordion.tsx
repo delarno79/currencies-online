@@ -6,6 +6,7 @@ import { ChevronDownIcon, ChevronUpIcon } from "lucide-react"
 function Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {
   return (
     <AccordionPrimitive.Root
+      keepMounted={true}
       data-slot="accordion"
       className={cn(
         "flex w-full flex-col overflow-hidden rounded-md border",

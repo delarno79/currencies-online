@@ -195,6 +195,38 @@ export function CurrencyDetail({
               Frequently Asked Questions
             </h2>
 
+            {(() => {
+              const fullFaqList = [
+                ...currency.faqs,
+                {
+                  question: "How accurate are the exchange rates listed?",
+                  answer:
+                    "All rates listed are reference mid-market rates based on static data matrices. These represent clean interbank values and should be used for informational purposes only.",
+                },
+              ]
+              const faqSchema = {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: fullFaqList.map((faq) => ({
+                  "@type": "Question",
+                  name: faq.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: faq.answer,
+                  },
+                })),
+              }
+              return (
+                <script
+                  type="application/ld+json"
+                  // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD schema requires dangerouslySetInnerHTML
+                  dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(faqSchema),
+                  }}
+                />
+              )
+            })()}
+
             <Accordion className="w-full space-y-2">
               {currency.faqs.map((faq) => (
                 <AccordionItem
