@@ -20,6 +20,9 @@ export default defineConfig({
             S.listItem()
               .title("Blog Posts")
               .child(S.documentTypeList("blogPost").title("Blog Posts")),
+            S.listItem()
+              .title("Categories")
+              .child(S.documentTypeList("category").title("Categories")),
           ]),
     }),
     visionTool(),
