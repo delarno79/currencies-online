@@ -18,9 +18,9 @@ export async function generateStaticParams() {
 }
 
 // Metadata builder
-export async function generateMetadata(
-  props: PageProps<"/currency/[id]">
-): Promise<Metadata> {
+export async function generateMetadata(props: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
   const { id } = await props.params
   const currency = await getCachedCurrency(id)
 
@@ -41,7 +41,9 @@ export async function generateMetadata(
   }
 }
 
-export default async function CurrencyPage(props: PageProps<"/currency/[id]">) {
+export default async function CurrencyPage(props: {
+  params: Promise<{ id: string }>
+}) {
   const { id } = await props.params
   const [currency, countries] = await Promise.all([
     getCachedCurrency(id),

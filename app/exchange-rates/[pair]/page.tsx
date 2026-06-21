@@ -17,9 +17,9 @@ export async function generateStaticParams() {
 }
 
 // Build SEO Metadata
-export async function generateMetadata(
-  props: PageProps<"/exchange-rates/[pair]">
-) {
+export async function generateMetadata(props: {
+  params: Promise<{ pair: string }>
+}) {
   const { pair } = await props.params
   const currencies = await getCachedCurrencies()
   const parsed = parsePair(pair, currencies)
@@ -44,9 +44,9 @@ export async function generateMetadata(
   }
 }
 
-export default async function ExchangeRatePairPage(
-  props: PageProps<"/exchange-rates/[pair]">
-) {
+export default async function ExchangeRatePairPage(props: {
+  params: Promise<{ pair: string }>
+}) {
   const { pair } = await props.params
   const currencies = await getCachedCurrencies()
   const parsed = parsePair(pair, currencies)

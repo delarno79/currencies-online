@@ -31,18 +31,10 @@ export const blogPost = defineType({
     defineField({
       name: "category",
       title: "Category",
-      type: "string",
-      options: {
-        list: [
-          "Market Analysis",
-          "Economic Policy",
-          "Currency Guide",
-          "Hyperinflation",
-          "Investing",
-          "News & Updates",
-        ],
-        layout: "radio",
-      },
+      type: "reference",
+      to: [{ type: "category" }],
+      description:
+        "Select a category. You can manage categories from the 'Category' section in the Studio.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({

@@ -13,9 +13,9 @@ export async function generateStaticParams() {
 }
 
 // Generate dynamic metadata for SEO
-export async function generateMetadata(
-  props: PageProps<"/country/[id]">
-): Promise<Metadata> {
+export async function generateMetadata(props: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
   const { id } = await props.params
   const country = await getCachedCountry(id)
 
@@ -36,7 +36,9 @@ export async function generateMetadata(
   }
 }
 
-export default async function CountryPage(props: PageProps<"/country/[id]">) {
+export default async function CountryPage(props: {
+  params: Promise<{ id: string }>
+}) {
   const { id } = await props.params
   const country = await getCachedCountry(id)
 

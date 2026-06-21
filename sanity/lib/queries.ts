@@ -7,7 +7,7 @@ export const allBlogsQuery = groq`
     title,
     summary,
     author,
-    category,
+    "category": category->title,
     readTime,
     publishedAt,
     "imageUrl": coverImage.asset->url
@@ -22,7 +22,7 @@ export const blogBySlugQuery = groq`
     summary,
     content,
     author,
-    category,
+    "category": category->title,
     readTime,
     publishedAt,
     "imageUrl": coverImage.asset->url

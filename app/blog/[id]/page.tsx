@@ -16,9 +16,9 @@ async function fetchPost(slug: string): Promise<SanityBlogPost | null> {
   return client.fetch<SanityBlogPost | null>(blogBySlugQuery, { slug })
 }
 
-export async function generateMetadata(
-  props: PageProps<"/blog/[id]">
-): Promise<Metadata> {
+export async function generateMetadata(props: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
   const { id } = await props.params
 
   // Try Sanity first
@@ -44,7 +44,9 @@ export async function generateMetadata(
   }
 }
 
-export default function BlogPostPage(props: PageProps<"/blog/[id]">) {
+export default function BlogPostPage(props: {
+  params: Promise<{ id: string }>
+}) {
   return (
     <Suspense
       fallback={
