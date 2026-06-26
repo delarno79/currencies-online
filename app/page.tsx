@@ -9,7 +9,7 @@ import { Hero } from "@/app/_components/hero"
 import { LatestRates } from "@/app/_components/latest-rates"
 import { PopularCurrencies } from "@/app/_components/popular-currencies"
 import { PopularPairs } from "@/app/_components/popular-pairs"
-import { getCachedCountries, getCachedCurrencies } from "@/lib/data-cache"
+import { getCachedCountries, getCachedCurrencies, getCachedSystemSettings } from "@/lib/data-cache"
 
 export const metadata: Metadata = {
   title:
@@ -111,7 +111,7 @@ export default async function Home() {
   const [countries, currencies, settings, cities] = await Promise.all([
     getCachedCountries(),
     getCachedCurrencies(),
-    db.systemSetting.findMany(),
+    getCachedSystemSettings(),
     db.city.findMany({
       select: { name: true, slug: true, state: true },
       orderBy: { name: "asc" },

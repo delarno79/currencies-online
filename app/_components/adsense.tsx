@@ -1,5 +1,5 @@
 import { Sparkles } from "lucide-react"
-import { db } from "@/lib/db"
+import { getCachedSystemSettings } from "@/lib/data-cache"
 
 interface AdsenseProps {
   slot?: string
@@ -12,7 +12,7 @@ export async function Adsense({
   format = "horizontal",
   className,
 }: AdsenseProps) {
-  const settingsList = await db.systemSetting.findMany().catch(() => [])
+  const settingsList = await getCachedSystemSettings().catch(() => [])
   
   const getSetting = (key: string, defaultValue: string) => {
     return settingsList.find((s) => s.key === key)?.value ?? defaultValue

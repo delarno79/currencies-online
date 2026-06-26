@@ -2,8 +2,8 @@ import { ArrowRight, Coins } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { getCachedCountries, getCachedCurrencies } from "@/lib/data-cache"
-import { db } from "@/lib/db"
+import { getCachedCountries, getCachedCurrencies, getCachedSystemSettings } from "@/lib/data-cache"
+
 
 export async function PopularCurrencies({
   title,
@@ -38,9 +38,8 @@ export async function PopularCurrencies({
   ]
 
   try {
-    const setting = await db.systemSetting.findUnique({
-      where: { key: "popular_currencies" },
-    })
+    const settings = await getCachedSystemSettings()
+    const setting = settings.find((s) => s.key === "popular_currencies")
     if (setting && setting.value.trim()) {
       order = setting.value.split(",").map((c) => c.trim().toUpperCase())
     }
