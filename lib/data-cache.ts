@@ -12,7 +12,7 @@ export const getCachedSystemSettings = unstable_cache(
     return db.systemSetting.findMany().catch(() => [])
   },
   ["system-settings"],
-  { revalidate: 3600 }
+  { revalidate: 3600, tags: ["system-settings"] }
 )
 
 export const getCachedCountries = unstable_cache(
