@@ -425,7 +425,7 @@ export async function updateSystemSettingsAction(
       })
     }
 
-    revalidateTag("system-settings")
+    revalidateTag("system-settings", "max")
     revalidatePath("/")
     revalidatePath("/admin/settings")
     return { success: "Settings updated successfully!" }
