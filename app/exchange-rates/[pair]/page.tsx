@@ -8,12 +8,9 @@ import {
 import { RatePairDetail } from "./_components/rate-pair-detail"
 import { parsePair } from "./utils"
 
-// Pre-render all exchange rate pair paths from the full matrix
+// Pre-render exactly one pair for Next.js Cache Components validation, others are generated on-demand
 export async function generateStaticParams() {
-  const exchangeRatesMatrix = await getCachedExchangeRates()
-  return exchangeRatesMatrix.map((pair) => ({
-    pair: `${pair.from.toLowerCase()}-to-${pair.to.toLowerCase()}`,
-  }))
+  return [{ pair: "usd-to-eur" }]
 }
 
 // Build SEO Metadata

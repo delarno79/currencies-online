@@ -9,12 +9,9 @@ import {
 } from "@/lib/data-cache"
 import { CurrencyDetail } from "./_components/currency-detail"
 
-// Pre-render currency routes
+// Pre-render exactly one path for Next.js Cache Components validation, others are generated on-demand
 export async function generateStaticParams() {
-  const currencies = await getCachedCurrencies()
-  return currencies.map((c) => ({
-    id: c.id,
-  }))
+  return [{ id: "us-dollar" }]
 }
 
 // Metadata builder

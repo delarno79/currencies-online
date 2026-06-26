@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { cacheLife, cacheTag } from "next/cache"
+import { unstable_cache } from "next/cache"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 import { Adsense } from "@/app/_components/adsense"
@@ -7,10 +7,7 @@ import { blogs as hardcodedBlogs } from "@/lib/data"
 import { db } from "@/lib/db"
 import { BlogPostContent } from "./_components/blog-post-content"
 
-async function fetchDbPost(slug: string) {
-  "use cache"
-  cacheLife("minutes")
-  cacheTag("blogs", `blog-${slug}`)
+async function getRawDbPost(slug: string) {
   try {
     const post = await db.blogPost.findUnique({
       where: { slug },
@@ -40,10 +37,16 @@ async function fetchDbPost(slug: string) {
   }
 }
 
-async function fetchDbRecommendations(excludeSlug: string) {
-  "use cache"
-  cacheLife("minutes")
-  cacheTag("blogs")
+async function fetchDbPost(slug: string) {
+  const cachedFn = unstable_cache(
+    async (s: string) => getRawDbPost(s),
+    [`blog-post-${slug}`],
+    { revalidate: 60 }
+  )
+  return cachedFn(slug)
+}
+
+async function getRawDbRecommendations(excludeSlug: string) {
   try {
     const dbPosts = await db.blogPost.findMany({
       where: {
@@ -74,6 +77,15 @@ async function fetchDbRecommendations(excludeSlug: string) {
     console.error("Failed to fetch blog recommendations from database:", err)
     return []
   }
+}
+
+async function fetchDbRecommendations(excludeSlug: string) {
+  const cachedFn = unstable_cache(
+    async (eSlug: string) => getRawDbRecommendations(eSlug),
+    [`blog-recommendations-${excludeSlug}`],
+    { revalidate: 60 }
+  )
+  return cachedFn(excludeSlug)
 }
 
 export async function generateMetadata(props: {

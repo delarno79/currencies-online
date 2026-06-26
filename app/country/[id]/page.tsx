@@ -4,12 +4,9 @@ import { Adsense } from "@/app/_components/adsense"
 import { getCachedCountries, getCachedCountry } from "@/lib/data-cache"
 import { CountryDetail } from "./_components/country-detail"
 
-// Statically pre-render all country paths
+// Pre-render exactly one path for Next.js Cache Components validation, others are generated on-demand
 export async function generateStaticParams() {
-  const allCountries = await getCachedCountries()
-  return allCountries.map((country) => ({
-    id: country.id,
-  }))
+  return [{ id: "italy" }]
 }
 
 // Generate dynamic metadata for SEO

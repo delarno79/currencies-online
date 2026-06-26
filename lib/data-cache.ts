@@ -1,55 +1,65 @@
-import { cacheLife, cacheTag } from "next/cache"
+import { unstable_cache } from "next/cache"
 import { getCountriesFromApi } from "./countries-api"
 import {
   getCurrenciesFromApi,
   getExchangeRatesMatrixFromApi,
 } from "./currencies-api"
 import { getHistoricalRates } from "./historical-rates"
+import { db } from "./db"
 
-export async function getCachedCountries() {
-  "use cache"
-  cacheLife("hours")
-  cacheTag("countries")
-  return getCountriesFromApi()
-}
+export const getCachedSystemSettings = unstable_cache(
+  async () => {
+    return db.systemSetting.findMany().catch(() => [])
+  },
+  ["system-settings"],
+  { revalidate: 3600 }
+)
+
+export const getCachedCountries = unstable_cache(
+  async () => {
+    return getCountriesFromApi()
+  },
+  ["countries"],
+  { revalidate: 3600 }
+)
 
 export async function getCachedCountry(id: string) {
-  "use cache"
-  cacheLife("hours")
-  cacheTag("countries", `country-${id}`)
   const allCountries = await getCachedCountries()
   return allCountries.find((c) => c.id === id)
 }
 
-export async function getCachedCurrencies() {
-  "use cache"
-  cacheLife("hours")
-  cacheTag("currencies")
-  return getCurrenciesFromApi()
-}
+export const getCachedCurrencies = unstable_cache(
+  async () => {
+    return getCurrenciesFromApi()
+  },
+  ["currencies"],
+  { revalidate: 3600 }
+)
 
 export async function getCachedCurrency(id: string) {
-  "use cache"
-  cacheLife("hours")
-  cacheTag("currencies", `currency-${id}`)
   const allCurrencies = await getCachedCurrencies()
   return allCurrencies.find((c) => c.id === id)
 }
 
-export async function getCachedExchangeRates() {
-  "use cache"
-  cacheLife("hours")
-  cacheTag("exchange-rates")
-  return getExchangeRatesMatrixFromApi()
-}
+export const getCachedExchangeRates = unstable_cache(
+  async () => {
+    return getExchangeRatesMatrixFromApi()
+  },
+  ["exchange-rates"],
+  { revalidate: 3600 }
+)
 
 export async function getCachedHistoricalRates(
   fromCode: string,
   toCode: string,
   fallbackRate = 1
 ) {
-  "use cache"
-  cacheLife("hours")
-  cacheTag(`historical-${fromCode}-${toCode}`)
-  return getHistoricalRates(fromCode, toCode, 30, fallbackRate)
+  const cacheFn = unstable_cache(
+    async () => {
+      return getHistoricalRates(fromCode, toCode, 30, fallbackRate)
+    },
+    [`historical-${fromCode}-${toCode}`],
+    { revalidate: 3600 }
+  )
+  return cacheFn()
 }

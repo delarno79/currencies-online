@@ -18,14 +18,14 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://currencies.global"),
 }
 
-import { db } from "@/lib/db"
+import { getCachedSystemSettings } from "@/lib/data-cache"
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const settingsList = await db.systemSetting.findMany().catch(() => [])
+  const settingsList = await getCachedSystemSettings()
   
   const getSetting = (key: string, defaultValue: string) => {
     return settingsList.find((s) => s.key === key)?.value ?? defaultValue

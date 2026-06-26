@@ -37,6 +37,7 @@ export async function fetchWithTimeout(
   const id = setTimeout(() => controller.abort(), timeoutMs)
   try {
     const response = await fetch(url, {
+      cache: "force-cache",
       ...options,
       signal: controller.signal,
     })
