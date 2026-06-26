@@ -1,6 +1,6 @@
 "use server"
 
-import { revalidatePath } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import {
   hashPassword,
@@ -425,6 +425,7 @@ export async function updateSystemSettingsAction(
       })
     }
 
+    revalidateTag("system-settings")
     revalidatePath("/")
     revalidatePath("/admin/settings")
     return { success: "Settings updated successfully!" }
