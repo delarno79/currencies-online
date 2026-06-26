@@ -9,7 +9,7 @@
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-06B6D4?logo=tailwindcss)](https://tailwindcss.com)
 
 ---
-
+ 
 ## Overview
 
 Currencies.global is a directory-style website providing:
@@ -31,7 +31,7 @@ Currencies.global is a directory-style website providing:
 |---|---|
 | Framework | [Next.js 16.2.6](https://nextjs.org) (App Router, Turbopack) |
 | Language | TypeScript 5 |
-| Database | SQLite + [Prisma ORM](https://prisma.io) |
+| Database | Supabase (PostgreSQL) + [Prisma ORM](https://prisma.io) |
 | UI Library | [shadcn/ui](https://ui.shadcn.com) + [Base UI](https://base-ui.com) |
 | Styling | Tailwind CSS v4 |
 | Charts | [Recharts 3](https://recharts.org) |
@@ -43,7 +43,7 @@ Currencies.global is a directory-style website providing:
 
 ### Database & Directory System
 
-- **Database Backend**: SQLite database managed via Prisma ORM (Schema located in `prisma/schema.prisma`).
+- **Database Backend**: PostgreSQL database hosted on Supabase and managed via Prisma ORM (Schema located in `prisma/schema.prisma`).
 - **Dynamic Settings**: Settings (homepage text, popular currency codes, popular pair configurations) are updated live from the secure `/admin/settings` forms.
 - **City Directories**: Dynamic `/currency-exchange/[city]` pages fetch physical currency bureau locations on-demand using the Google Places API.
 - **Smart Redirection**: Resolves partial or incomplete city slugs (e.g. `/currency-exchange/new-york` redirects to canonical `/currency-exchange/new-york-ny`) using prefix matching.
