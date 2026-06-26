@@ -3,15 +3,22 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { getCachedCountries, getCachedCurrencies } from "@/lib/data-cache"
+import { db } from "@/lib/db"
 
-export async function PopularCurrencies() {
+export async function PopularCurrencies({
+  title,
+  subtitle,
+}: {
+  title?: string
+  subtitle?: string
+} = {}) {
   const [countries, currencies] = await Promise.all([
     getCachedCountries(),
     getCachedCurrencies(),
   ])
 
-  // Mockup order of popular currencies
-  const order = [
+  // Get order of popular currencies from database
+  let order = [
     "USD",
     "EUR",
     "JPY",
@@ -29,6 +36,17 @@ export async function PopularCurrencies() {
     "SEK",
     "KRW",
   ]
+
+  try {
+    const setting = await db.systemSetting.findUnique({
+      where: { key: "popular_currencies" },
+    })
+    if (setting && setting.value.trim()) {
+      order = setting.value.split(",").map((c) => c.trim().toUpperCase())
+    }
+  } catch (err) {
+    console.error("Failed to load popular currencies setting:", err)
+  }
 
   // Filter and sort currencies based on order
   const popularList = order
@@ -55,10 +73,10 @@ export async function PopularCurrencies() {
         <div>
           <h2 className="flex items-center gap-2 font-bold font-heading text-2xl text-foreground tracking-tight sm:text-3xl">
             <Coins className="h-6 w-6 text-primary" />
-            Popular Currencies
+            {title || "Popular Currencies"}
           </h2>
           <p className="mt-2 text-muted-foreground text-sm">
-            Explore the world's most used currencies.
+            {subtitle || "Explore the world's most used currencies."}
           </p>
         </div>
         <Link

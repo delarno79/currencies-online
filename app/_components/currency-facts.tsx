@@ -67,22 +67,31 @@ const FACTS: FactItem[] = [
   },
 ]
 
-export function CurrencyFacts() {
+export function CurrencyFacts({
+  title,
+  subtitle,
+  facts,
+}: {
+  title?: string
+  subtitle?: string
+  facts?: FactItem[]
+} = {}) {
+  const displayFacts = facts || FACTS
+
   return (
     <section className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-6 lg:px-8">
       <div className="mb-8">
         <h2 className="flex items-center gap-2 font-bold font-heading text-2xl text-foreground tracking-tight sm:text-3xl">
-          <Globe className="h-6 w-6 animate-spin-slow text-blue-500" />8
-          Fascinating Currency Facts
+          <Globe className="h-6 w-6 animate-spin-slow text-blue-500" />
+          {title || "8 Fascinating Currency Facts"}
         </h2>
         <p className="mt-2 text-muted-foreground text-sm">
-          Did you know? Explore these interesting facts about foreign exchange
-          markets and global currencies.
+          {subtitle || "Did you know? Explore these interesting facts about foreign exchange markets and global currencies."}
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {FACTS.map((item) => (
+        {displayFacts.map((item) => (
           <Card
             key={item.id}
             className="group relative overflow-hidden border border-border bg-card/40 transition-all duration-300 hover:border-blue-500/30 hover:bg-card hover:shadow-md"

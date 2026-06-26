@@ -373,8 +373,13 @@ const getFlag = (code: string) => {
   return flags[code.toUpperCase()] || "🏳️"
 }
 
-export function PopularPairs() {
+interface PopularPairsProps {
+  initialPairs?: CurrencyPair[]
+}
+
+export function PopularPairs({ initialPairs }: PopularPairsProps) {
   const [isExpanded, setIsExpanded] = useState(false)
+  const pairs = initialPairs || POPULAR_PAIRS
 
   return (
     <section className="mx-auto w-full max-w-[1440px] px-4 py-8 sm:px-6 lg:px-8">
@@ -382,7 +387,7 @@ export function PopularPairs() {
         <div>
           <h2 className="flex items-center gap-2 font-bold font-heading text-2xl text-foreground tracking-tight sm:text-3xl">
             <RefreshCw className="h-6 w-6 text-primary" />
-            Most Popular Currency Pairs
+            Most Popular Currency Exchange Globally
           </h2>
           <p className="mt-2 text-muted-foreground text-sm">
             Quickly access real-time conversion rates and charts for
@@ -392,13 +397,13 @@ export function PopularPairs() {
       </div>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
-        {POPULAR_PAIRS.map((pair, index) => {
+        {pairs.map((pair, index) => {
           const fromFlag = getFlag(pair.from)
           const toFlag = getFlag(pair.to)
           const isHidden = !isExpanded && index >= 32
           return (
             <Link
-              key={pair.label}
+              key={`${pair.from}-${pair.to}-${index}`}
               href={pair.href}
               className={cn("group block", isHidden && "hidden")}
             >
@@ -440,7 +445,7 @@ export function PopularPairs() {
             </>
           ) : (
             <>
-              <span>Show All {POPULAR_PAIRS.length} Pairs</span>
+              <span>Show All {pairs.length} Pairs</span>
               <ChevronDown className="h-4 w-4" />
             </>
           )}

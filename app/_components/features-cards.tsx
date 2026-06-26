@@ -8,44 +8,80 @@ import {
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 
-export function FeaturesCards() {
+interface FeaturesCardsProps {
+  card1Title?: string
+  card1Desc?: string
+  card1Btn?: string
+  card1Href?: string
+  card2Title?: string
+  card2Desc?: string
+  card2Btn?: string
+  card2Href?: string
+  card3Title?: string
+  card3Desc?: string
+  card3Btn?: string
+  card3Href?: string
+  card4Title?: string
+  card4Desc?: string
+  card4Btn?: string
+  card4Href?: string
+}
+
+export function FeaturesCards({
+  card1Title,
+  card1Desc,
+  card1Btn,
+  card1Href,
+  card2Title,
+  card2Desc,
+  card2Btn,
+  card2Href,
+  card3Title,
+  card3Desc,
+  card3Btn,
+  card3Href,
+  card4Title,
+  card4Desc,
+  card4Btn,
+  card4Href,
+}: FeaturesCardsProps = {}) {
   const cards = [
     {
-      title: "Currency Converter",
+      title: card1Title || "Currency Converter",
       description:
-        "Convert between any currencies instantly with real-time exchange rates.",
-      buttonText: "Convert Now",
-      href: "/converter",
+        card1Desc || "Convert between any currencies instantly with real-time exchange rates.",
+      buttonText: card1Btn || "Convert Now",
+      href: card1Href || "/converter",
       icon: Globe,
       iconBg: "bg-blue-500/10 text-blue-500",
       btnClass: "text-blue-500 hover:text-blue-600",
     },
     {
-      title: "Compare Currencies",
+      title: card2Title || "Compare Currencies",
       description:
-        "Compare currencies, countries, exchange rates, and purchasing power side by side.",
-      buttonText: "Compare Now",
-      href: "/compare",
+        card2Desc || "Compare currencies, countries, exchange rates, and purchasing power side by side.",
+      buttonText: card2Btn || "Compare Now",
+      href: card2Href || "/compare",
       icon: ArrowLeftRight,
       iconBg: "bg-emerald-500/10 text-emerald-500",
       btnClass: "text-emerald-500 hover:text-emerald-600",
     },
     {
-      title: "Exchange Rates",
+      title: card3Title || "Exchange Rates",
       description:
-        "View live, historical, and forecast exchange rates for any currency pair.",
-      buttonText: "View Rates",
-      href: "/exchange-rates",
+        card3Desc || "View live, historical, and forecast exchange rates for any currency pair.",
+      buttonText: card3Btn || "View Rates",
+      href: card3Href || "/exchange-rates",
       icon: TrendingUp,
       iconBg: "bg-purple-500/10 text-purple-500",
       btnClass: "text-purple-500 hover:text-purple-600",
     },
     {
-      title: "Currency Guides",
+      title: card4Title || "Currency Guides",
       description:
-        "Read expert articles, guides, and insights about global currencies.",
-      buttonText: "Read Blog",
-      href: "/blog",
+        card4Desc || "Read expert articles, guides, and insights about global currencies.",
+      buttonText: card4Btn || "Read Blog",
+      href: card4Href || "/blog",
       icon: BookOpen,
       iconBg: "bg-amber-500/10 text-amber-500",
       btnClass: "text-amber-500 hover:text-amber-600",

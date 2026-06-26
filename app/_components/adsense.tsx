@@ -1,4 +1,5 @@
 import { Sparkles } from "lucide-react"
+import { db } from "@/lib/db"
 
 interface AdsenseProps {
   slot?: string
@@ -6,11 +7,20 @@ interface AdsenseProps {
   className?: string
 }
 
-export function Adsense({
+export async function Adsense({
   slot,
   format = "horizontal",
   className,
 }: AdsenseProps) {
+  const settingsList = await db.systemSetting.findMany().catch(() => [])
+  
+  const getSetting = (key: string, defaultValue: string) => {
+    return settingsList.find((s) => s.key === key)?.value ?? defaultValue
+  }
+  
+  const adsenseEnabled = getSetting("adsense_enabled", "false") === "true"
+  const adsenseClientId = getSetting("adsense_client_id", "")
+
   // Determine height classes based on format
   const heightClass = {
     horizontal: "h-24 sm:h-28 w-full",
@@ -18,6 +28,26 @@ export function Adsense({
     vertical: "h-[600px] w-[160px]",
     auto: "h-32 w-full",
   }[format]
+
+  if (adsenseEnabled && adsenseClientId && slot) {
+    return (
+      <div className={`relative overflow-hidden flex items-center justify-center ${heightClass} ${className || ""}`}>
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block", width: "100%", height: "100%" }}
+          data-ad-client={adsenseClientId}
+          data-ad-slot={slot}
+          data-ad-format={format}
+          data-full-width-responsive="true"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "(window.adsbygoogle = window.adsbygoogle || []).push({});",
+          }}
+        />
+      </div>
+    )
+  }
 
   return (
     <div

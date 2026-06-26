@@ -3,7 +3,13 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
-export function BrowseRegions() {
+export function BrowseRegions({
+  title,
+  subtitle,
+}: {
+  title?: string
+  subtitle?: string
+} = {}) {
   const regions = [
     {
       name: "Asia",
@@ -53,11 +59,10 @@ export function BrowseRegions() {
     <section className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-6 lg:px-8">
       <div className="mb-8">
         <h2 className="font-bold font-heading text-2xl text-foreground tracking-tight sm:text-3xl">
-          Browse Countries by Region
+          {title || "Browse Countries by Region"}
         </h2>
         <p className="mt-2 text-muted-foreground text-sm">
-          Explore global currencies and economic indicators divided by
-          continent.
+          {subtitle || "Explore global currencies and economic indicators divided by continent."}
         </p>
       </div>
 

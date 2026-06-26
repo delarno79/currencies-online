@@ -145,13 +145,13 @@ export function BlogList({ posts }: BlogListProps) {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center border border-border bg-card py-20 text-center">
-          <BookOpen className="mb-4 h-12 w-12 animate-bounce text-muted-foreground/40" />
+          <BookOpen className="mb-4 h-12 w-12 text-muted-foreground/40" />
           <h3 className="font-bold text-foreground text-lg">
-            No Articles Found
+            no content available
           </h3>
           <p className="mt-2 max-w-sm text-muted-foreground text-sm">
-            We couldn't find any articles matching your search query. Try typing
-            something else.
+            There are currently no blog articles published in our database.
+            Please check back later!
           </p>
         </div>
       )}

@@ -2,11 +2,9 @@ import { BookOpen } from "lucide-react"
 import type { Metadata } from "next"
 import { cacheLife, cacheTag } from "next/cache"
 import { Adsense } from "@/app/_components/adsense"
-import { blogs as hardcodedBlogs } from "@/lib/data"
-import { client } from "@/sanity/lib/client"
-import { allBlogsQuery } from "@/sanity/lib/queries"
-import type { SanityBlogPost } from "@/sanity/lib/types"
+import { db } from "@/lib/db"
 import { BlogList } from "./_components/blog-list"
+import { RefreshInterval } from "./_components/refresh-interval"
 
 export const metadata: Metadata = {
   title: "Currency & Economic Blog | Currencies.global",
@@ -14,21 +12,45 @@ export const metadata: Metadata = {
     "Read expert analyses on world currencies, hyperinflation, currency strength benchmarks, and global economic trends.",
 }
 
-async function fetchSanityPosts(): Promise<SanityBlogPost[]> {
+async function fetchDbPosts() {
   "use cache"
   cacheLife("minutes")
   cacheTag("blogs")
-  return client.fetch<SanityBlogPost[]>(allBlogsQuery)
+  try {
+    const dbPosts = await db.blogPost.findMany({
+      where: { published: true },
+      include: { category: true },
+      orderBy: { createdAt: "desc" },
+    })
+
+    return dbPosts.map((post) => ({
+      id: post.slug,
+      title: post.title,
+      summary: post.summary,
+      category: post.category.name,
+      readTime: `${Math.ceil(post.content.split(/\s+/).length / 200)} min read`,
+      date: post.createdAt.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
+      author: "Currencies.global Editor",
+      content: post.content,
+      imageUrl: "",
+    }))
+  } catch (err) {
+    console.error("Failed to fetch blog posts from database:", err)
+    return []
+  }
 }
 
 export default async function BlogPage() {
-  const sanityPosts = await fetchSanityPosts()
-
-  // Show Sanity posts if available, otherwise fall back to hardcoded posts
-  const posts = sanityPosts.length > 0 ? sanityPosts : hardcodedBlogs
+  const posts = await fetchDbPosts()
 
   return (
     <div className="container mx-auto max-w-[1440px] px-4 py-10 sm:px-6 lg:px-8">
+      <RefreshInterval />
+
       {/* Page Header */}
       <div className="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <div>

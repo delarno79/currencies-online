@@ -58,6 +58,10 @@ export function Header() {
     setTheme(resolvedTheme === "dark" ? "light" : "dark")
   }
 
+  if (pathname?.startsWith("/admin") || pathname?.startsWith("/studio")) {
+    return null
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full border-border border-b bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-[1440px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">

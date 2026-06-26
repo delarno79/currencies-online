@@ -29,6 +29,8 @@ import {
 interface HeroProps {
   initialCountries?: Country[]
   initialCurrencies?: Currency[]
+  title?: string
+  subtitle?: string
 }
 
 // Background currency symbols scattered across the hero
@@ -155,7 +157,12 @@ const BG_SYMBOLS = [
   },
 ]
 
-export function Hero({ initialCountries, initialCurrencies }: HeroProps) {
+export function Hero({
+  initialCountries,
+  initialCurrencies,
+  title,
+  subtitle,
+}: HeroProps) {
   const countries = initialCountries || staticCountries
   const currencies = initialCurrencies || staticCurrencies
   const router = useRouter()
@@ -308,17 +315,21 @@ export function Hero({ initialCountries, initialCurrencies }: HeroProps) {
               className="font-extrabold text-[#0a1f44] leading-tight tracking-tight dark:text-white"
               style={{ fontSize: "clamp(2rem, 4vw, 2.75rem)" }}
             >
-              Find Any Country&apos;s
-              <br />
-              <span className="text-[#0a1f44] dark:text-blue-400">
-                Currency Instantly
-              </span>
+              {title || (
+                <>
+                  Find Any Country&apos;s
+                  <br />
+                  <span className="text-[#0a1f44] dark:text-blue-400">
+                    Currency Instantly
+                  </span>
+                </>
+              )}
             </h1>
 
             {/* Feature Pills */}
             <div className="space-y-2.5">
               <p className="font-semibold text-slate-500 text-sm dark:text-slate-400">
-                Search for a country and instantly see:
+                {subtitle || "Search for a country and instantly see:"}
               </p>
 
               <div className="flex flex-wrap gap-2">

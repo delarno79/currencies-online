@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
 import { NuqsAdapter } from "nuqs/adapters/next/app"
 import { Suspense } from "react"
 
@@ -19,33 +18,50 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://currencies.global"),
 }
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
+import { db } from "@/lib/db"
 
-const fontMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-})
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const settingsList = await db.systemSetting.findMany().catch(() => [])
+  
+  const getSetting = (key: string, defaultValue: string) => {
+    return settingsList.find((s) => s.key === key)?.value ?? defaultValue
+  }
+  
+  const adsenseEnabled = getSetting("adsense_enabled", "false") === "true"
+  const adsenseClientId = getSetting("adsense_client_id", "")
+  const adsenseGlobalCode = getSetting("adsense_global_code", "")
+
   return (
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn(
-        "antialiased",
-        fontMono.variable,
-        "font-sans",
-        geist.variable
-      )}
+      className="antialiased font-sans"
     >
+      <head>
+        {adsenseEnabled && adsenseClientId && (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`}
+            crossOrigin="anonymous"
+          />
+        )}
+        {adsenseGlobalCode && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: adsenseGlobalCode.replace(/<\/?script>/gi, ""),
+            }}
+          />
+        )}
+      </head>
       <body>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-4C91RK4QF4"
           strategy="afterInteractive"
+          id="gtag"
         />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
@@ -67,7 +83,9 @@ export default function RootLayout({
                 <Header />
               </Suspense>
               <main className="flex-1">{children}</main>
-              <Footer />
+              <Suspense fallback={null}>
+                <Footer />
+              </Suspense>
               <Suspense fallback={null}>
                 <MobileNav />
               </Suspense>

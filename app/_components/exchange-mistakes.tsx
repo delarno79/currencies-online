@@ -58,22 +58,31 @@ const MISTAKES: MistakeItem[] = [
   },
 ]
 
-export function ExchangeMistakes() {
+export function ExchangeMistakes({
+  title,
+  subtitle,
+  mistakes,
+}: {
+  title?: string
+  subtitle?: string
+  mistakes?: MistakeItem[]
+} = {}) {
+  const displayMistakes = mistakes || MISTAKES
+
   return (
     <section className="mx-auto w-full max-w-[1440px] px-4 py-12 sm:px-6 lg:px-8">
       <div className="mb-8">
         <h2 className="flex items-center gap-2 font-bold font-heading text-2xl text-foreground tracking-tight sm:text-3xl">
-          <AlertTriangle className="h-6 w-6 animate-pulse text-amber-500" />8
-          Common Currency Exchange Mistakes to Avoid
+          <AlertTriangle className="h-6 w-6 animate-pulse text-amber-500" />
+          {title || "8 Common Currency Exchange Mistakes to Avoid"}
         </h2>
         <p className="mt-2 text-muted-foreground text-sm">
-          Keep these pitfalls in mind to secure the best rates and keep more of
-          your funds during exchange transactions.
+          {subtitle || "Keep these pitfalls in mind to secure the best rates and keep more of your funds during exchange transactions."}
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {MISTAKES.map((item) => (
+        {displayMistakes.map((item) => (
           <Card
             key={item.id}
             className="group relative overflow-hidden border border-border bg-card/40 transition-all duration-300 hover:border-amber-500/30 hover:bg-card hover:shadow-md"

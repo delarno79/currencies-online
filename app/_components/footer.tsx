@@ -1,6 +1,9 @@
+"use client"
+
 import { Activity, Coins, DollarSign, Globe } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Copyright } from "./copyright"
 
 const socials = [
@@ -102,6 +105,12 @@ const socials = [
 ]
 
 export function Footer() {
+  const pathname = usePathname()
+
+  if (pathname?.startsWith("/admin") || pathname?.startsWith("/studio")) {
+    return null
+  }
+
   return (
     <footer className="border-slate-800 border-t bg-[#0c1f38] text-slate-300">
       <div className="container mx-auto max-w-[1440px] px-4 py-12 sm:px-6 lg:px-8 lg:py-16">

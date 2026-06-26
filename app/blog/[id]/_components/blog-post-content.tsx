@@ -94,16 +94,18 @@ function formatDate(raw: string) {
 interface BlogPostContentProps {
   post: BlogPost | SanityBlogPost
   source: "hardcoded" | "sanity"
+  recommendedPosts?: BlogPost[]
 }
 
-export function BlogPostContent({ post, source }: BlogPostContentProps) {
+export function BlogPostContent({
+  post,
+  source,
+  recommendedPosts = [],
+}: BlogPostContentProps) {
   const displayDate =
     source === "sanity"
       ? formatDate((post as SanityBlogPost).publishedAt)
       : (post as BlogPost).date
-
-  // For recommendations sidebar, use hardcoded posts
-  const otherPosts = blogs.filter((b) => b.id !== post.id).slice(0, 2)
 
   return (
     <div className="space-y-8">
@@ -220,37 +222,39 @@ export function BlogPostContent({ post, source }: BlogPostContentProps) {
           </Card>
 
           {/* Recommended Posts */}
-          <div className="space-y-4">
-            <h2 className="flex items-center gap-1.5 font-bold text-base text-foreground">
-              <BookOpen className="h-4.5 w-4.5 text-primary" />
-              Recommended Articles
-            </h2>
-
+          {recommendedPosts.length > 0 && (
             <div className="space-y-4">
-              {otherPosts.map((rec) => (
-                <Link
-                  key={rec.id}
-                  href={`/blog/${rec.id}`}
-                  className="group block"
-                >
-                  <Card className="border border-border transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
-                    <CardContent className="space-y-2 p-4">
-                      <span className="inline-flex items-center bg-primary/10 px-2 py-0.5 font-semibold text-[10px] text-primary">
-                        {rec.category}
-                      </span>
-                      <h3 className="line-clamp-2 font-bold text-foreground text-xs leading-snug transition-colors group-hover:text-primary">
-                        {rec.title}
-                      </h3>
-                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
-                        <Calendar className="h-3 w-3" />
-                        <span>{rec.date}</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
+              <h2 className="flex items-center gap-1.5 font-bold text-base text-foreground">
+                <BookOpen className="h-4.5 w-4.5 text-primary" />
+                Recommended Articles
+              </h2>
+
+              <div className="space-y-4">
+                {recommendedPosts.map((rec) => (
+                  <Link
+                    key={rec.id}
+                    href={`/blog/${rec.id}`}
+                    className="group block"
+                  >
+                    <Card className="border border-border transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
+                      <CardContent className="space-y-2 p-4">
+                        <span className="inline-flex items-center bg-primary/10 px-2 py-0.5 font-semibold text-[10px] text-primary">
+                          {rec.category}
+                        </span>
+                        <h3 className="line-clamp-2 font-bold text-foreground text-xs leading-snug transition-colors group-hover:text-primary">
+                          {rec.title}
+                        </h3>
+                        <div className="flex items-center gap-1 text-[10px] text-muted-foreground">
+                          <Calendar className="h-3 w-3" />
+                          <span>{rec.date}</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

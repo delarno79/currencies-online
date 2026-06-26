@@ -68,7 +68,13 @@ function Sparkline({
   )
 }
 
-export async function LatestRates() {
+export async function LatestRates({
+  title,
+  subtitle,
+}: {
+  title?: string
+  subtitle?: string
+} = {}) {
   const [exchangeRatesMatrix, countries] = await Promise.all([
     getCachedExchangeRates(),
     getCachedCountries(),
@@ -116,7 +122,7 @@ export async function LatestRates() {
       <div className="mb-8 flex flex-col justify-between sm:flex-row sm:items-end">
         <div>
           <h2 className="flex items-center gap-2 font-bold font-heading text-2xl text-foreground tracking-tight sm:text-3xl">
-            Live Exchange Rates
+            {title || "Live Exchange Rates"}
             {/* Blinking Live indicator */}
             <span className="relative ml-1 flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
@@ -124,7 +130,7 @@ export async function LatestRates() {
             </span>
           </h2>
           <p className="mt-2 text-muted-foreground text-sm">
-            Real-time exchange rates updated every second
+            {subtitle || "Real-time exchange rates updated every second"}
           </p>
         </div>
         <Link
