@@ -21,6 +21,8 @@ export const metadata: Metadata = {
   },
 }
 
+export const dynamic = "force-dynamic"
+
 import { db } from "@/lib/db"
 
 function resolveCurrencyCode(name: string): string | null {

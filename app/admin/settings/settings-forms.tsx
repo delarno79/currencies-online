@@ -141,11 +141,8 @@ export function SettingsForms({
   return (
     <div className="space-y-6">
       {/* Sleek Premium Tab Bar Container */}
-      <div 
-        className="overflow-x-auto rounded-xl border border-slate-700 bg-slate-900/30 p-1.5 backdrop-blur-md shadow-inner [&::-webkit-scrollbar]:hidden"
-        style={{ scrollbarWidth: "none" }}
-      >
-        <div className="flex min-w-max space-x-1.5">
+      <div className="rounded-xl border border-slate-700 bg-slate-900/30 p-2 backdrop-blur-md shadow-inner">
+        <div className="flex flex-wrap gap-2">
           {tabs.map((tab) => {
             const Icon = tab.icon
             const isActive = activeTab === tab.id
@@ -154,7 +151,7 @@ export function SettingsForms({
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-4.5 py-3 font-bold text-xs uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer select-none ${
+                className={`flex items-center gap-2 px-4 py-2.5 font-bold text-xs uppercase tracking-wider rounded-lg transition-all duration-200 cursor-pointer select-none ${
                   isActive
                     ? "bg-blue-600 text-white shadow-lg shadow-blue-500/10 -translate-y-[1px]"
                     : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"

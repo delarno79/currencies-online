@@ -10,6 +10,8 @@ export const metadata: Metadata = {
     "Browse the complete database of world currencies. Access official ISO currency codes, symbols, countries using them, and live exchange rates.",
 }
 
+export const dynamic = "force-dynamic"
+
 export default async function CurrenciesPage() {
   const [countries, currencies] = await Promise.all([
     getCachedCountries(),

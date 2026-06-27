@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description:
     "Browse the complete directory of global countries. Find capital cities, population figures, official flags, currency codes, and live exchange rates.",
 }
+export const dynamic = "force-dynamic"
 
 export default async function CountriesPage() {
   const countries = await getCachedCountries()
