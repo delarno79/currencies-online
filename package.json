@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "PRISMA_CLIENT_ENGINE_TYPE=binary prisma generate && (chmod -R +x node_modules/@prisma/engines 2>/dev/null || chmod -R +x ../node_modules/@prisma/engines 2>/dev/null || find . -name \"*engine*\" -exec chmod +x {} + 2>/dev/null || true) && PRISMA_CLIENT_ENGINE_TYPE=binary prisma db push --accept-data-loss && PRISMA_CLIENT_ENGINE_TYPE=binary tsx prisma/seed.ts && next build",
+    "build": "prisma generate && (chmod -R +x node_modules/@prisma/engines 2>/dev/null || chmod -R +x ../node_modules/@prisma/engines 2>/dev/null || find . -name \"*engine*\" -exec chmod +x {} + 2>/dev/null || true) && prisma db push --accept-data-loss && tsx prisma/seed.ts && next build",
     "start": "next start",
     "lint": "biome lint .",
     "format": "biome format --write .",
