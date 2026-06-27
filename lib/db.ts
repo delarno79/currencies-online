@@ -16,7 +16,7 @@ if (globalForPrisma.prisma) {
   
   const pool = new pg.Pool({ connectionString })
   const adapter = new PrismaPg(pool)
-  dbInstance = new PrismaClient({ adapter })
+  dbInstance = new PrismaClient({ adapter } as any)
 
   if (process.env.NODE_ENV !== "production") {
     globalForPrisma.prisma = dbInstance
