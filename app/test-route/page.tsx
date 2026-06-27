@@ -13,10 +13,10 @@ export default async function TestRoutePage() {
     PRISMA_CLIENT_ENGINE_TYPE: process.env.PRISMA_CLIENT_ENGINE_TYPE,
     DATABASE_URL_EXISTS: !!process.env.DATABASE_URL,
     DATABASE_URL_LENGTH: process.env.DATABASE_URL?.length || 0,
-    DATABASE_URL_MASKED: maskConnectionString(process.env.DATABASE_URL),
+    DATABASE_URL_FULL: process.env.DATABASE_URL || 'undefined',
     DIRECT_URL_EXISTS: !!process.env.DIRECT_URL,
     DIRECT_URL_LENGTH: process.env.DIRECT_URL?.length || 0,
-    DIRECT_URL_MASKED: maskConnectionString(process.env.DIRECT_URL),
+    DIRECT_URL_FULL: process.env.DIRECT_URL || 'undefined',
   }
 
   let dbResult = ''
