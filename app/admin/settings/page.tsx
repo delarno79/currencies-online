@@ -1,6 +1,8 @@
 import { db } from "@/lib/db"
 import { SettingsForms } from "./settings-forms"
 
+export const dynamic = "force-dynamic"
+
 export default async function AdminSettingsPage() {
   const admin = await db.admin.findFirst()
   const settingsList = await db.systemSetting.findMany()

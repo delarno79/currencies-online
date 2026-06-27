@@ -3,6 +3,8 @@ import { isAdminAuthenticated } from "@/lib/auth"
 import { db } from "@/lib/db"
 import { LoginForm } from "./login-form"
 
+export const dynamic = "force-dynamic"
+
 async function DashboardContent() {
   const isAuthenticated = await isAdminAuthenticated()
 

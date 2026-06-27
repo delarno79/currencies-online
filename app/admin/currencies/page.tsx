@@ -1,6 +1,8 @@
 import Link from "next/link"
 import { Suspense } from "react"
 import { db } from "@/lib/db"
+
+export const dynamic = "force-dynamic"
 import { DeleteConfirmButton } from "../_components/delete-confirm-button"
 import {
   createCurrencyAction,
