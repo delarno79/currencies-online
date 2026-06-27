@@ -4,7 +4,6 @@ import { Adsense } from "@/app/_components/adsense"
 import { db } from "@/lib/db"
 import { BlogList } from "./_components/blog-list"
 import { RefreshInterval } from "./_components/refresh-interval"
-import { unstable_cache } from "next/cache"
 
 export const metadata: Metadata = {
   title: "Currency & Economic Blog | Currencies.global",
@@ -12,38 +11,36 @@ export const metadata: Metadata = {
     "Read expert analyses on world currencies, hyperinflation, currency strength benchmarks, and global economic trends.",
 }
 
-const fetchDbPosts = unstable_cache(
-  async () => {
-    try {
-      const dbPosts = await db.blogPost.findMany({
-        where: { published: true },
-        include: { category: true },
-        orderBy: { createdAt: "desc" },
-      })
+export const dynamic = "force-dynamic"
 
-      return dbPosts.map((post) => ({
-        id: post.slug,
-        title: post.title,
-        summary: post.summary,
-        category: post.category.name,
-        readTime: `${Math.ceil(post.content.split(/\s+/).length / 200)} min read`,
-        date: post.createdAt.toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        }),
-        author: "Currencies.global Editor",
-        content: post.content,
-        imageUrl: "",
-      }))
-    } catch (err) {
-      console.error("Failed to fetch blog posts from database:", err)
-      return []
-    }
-  },
-  ["blogs-list"],
-  { revalidate: 60 }
-)
+async function fetchDbPosts() {
+  try {
+    const dbPosts = await db.blogPost.findMany({
+      where: { published: true },
+      include: { category: true },
+      orderBy: { createdAt: "desc" },
+    })
+
+    return dbPosts.map((post) => ({
+      id: post.slug,
+      title: post.title,
+      summary: post.summary,
+      category: post.category.name,
+      readTime: `${Math.ceil(post.content.split(/\s+/).length / 200)} min read`,
+      date: post.createdAt.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
+      author: "Currencies.global Editor",
+      content: post.content,
+      imageUrl: "",
+    }))
+  } catch (err) {
+    console.error("Failed to fetch blog posts from database:", err)
+    return []
+  }
+}
 
 export default async function BlogPage() {
   const posts = await fetchDbPosts()

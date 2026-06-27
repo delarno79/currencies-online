@@ -1,11 +1,12 @@
 import type { Metadata } from "next"
-import { unstable_cache } from "next/cache"
 import { notFound } from "next/navigation"
 import { Suspense } from "react"
 import { Adsense } from "@/app/_components/adsense"
 import { blogs as hardcodedBlogs } from "@/lib/data"
 import { db } from "@/lib/db"
 import { BlogPostContent } from "./_components/blog-post-content"
+
+export const dynamic = "force-dynamic"
 
 async function getRawDbPost(slug: string) {
   try {
@@ -38,12 +39,7 @@ async function getRawDbPost(slug: string) {
 }
 
 async function fetchDbPost(slug: string) {
-  const cachedFn = unstable_cache(
-    async (s: string) => getRawDbPost(s),
-    [`blog-post-${slug}`],
-    { revalidate: 60 }
-  )
-  return cachedFn(slug)
+  return getRawDbPost(slug)
 }
 
 async function getRawDbRecommendations(excludeSlug: string) {
@@ -80,12 +76,7 @@ async function getRawDbRecommendations(excludeSlug: string) {
 }
 
 async function fetchDbRecommendations(excludeSlug: string) {
-  const cachedFn = unstable_cache(
-    async (eSlug: string) => getRawDbRecommendations(eSlug),
-    [`blog-recommendations-${excludeSlug}`],
-    { revalidate: 60 }
-  )
-  return cachedFn(excludeSlug)
+  return getRawDbRecommendations(excludeSlug)
 }
 
 export async function generateMetadata(props: {
