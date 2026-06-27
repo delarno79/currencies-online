@@ -379,7 +379,7 @@ interface PopularPairsProps {
 
 export function PopularPairs({ initialPairs }: PopularPairsProps) {
   const [isExpanded, setIsExpanded] = useState(false)
-  const pairs = initialPairs || POPULAR_PAIRS
+  const pairs = initialPairs && initialPairs.length > 0 ? initialPairs : POPULAR_PAIRS
 
   return (
     <section className="mx-auto w-full max-w-[1440px] px-4 py-8 sm:px-6 lg:px-8">
@@ -387,7 +387,7 @@ export function PopularPairs({ initialPairs }: PopularPairsProps) {
         <div>
           <h2 className="flex items-center gap-2 font-bold font-heading text-2xl text-foreground tracking-tight sm:text-3xl">
             <RefreshCw className="h-6 w-6 text-primary" />
-            Most Popular Currency Exchange Globally
+            Most Popular Currency Pairs
           </h2>
           <p className="mt-2 text-muted-foreground text-sm">
             Quickly access real-time conversion rates and charts for
