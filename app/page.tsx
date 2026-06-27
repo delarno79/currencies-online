@@ -316,14 +316,14 @@ export default async function Home() {
         <Adsense slot="home-bottom-banner" format="horizontal" />
       </div>
 
-      {/* 7. Most Popular Currency Pairs Section */}
-      <PopularPairs initialPairs={parsedPairs} />
-
       {/* 5. Live Exchange Rates Section (Block 2) */}
       <LatestRates
         title={liveRatesTitle || undefined}
         subtitle={liveRatesSubtitle || undefined}
       />
+
+      {/* 7. Most Popular Currency Pairs Section */}
+      <PopularPairs initialPairs={parsedPairs} />
 
       {/* 8. 8 Common Currency Exchange Mistakes to Avoid Section */}
       <ExchangeMistakes
