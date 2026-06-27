@@ -51,7 +51,7 @@ export async function getLiveRates(): Promise<Record<string, number>> {
   try {
     const ratesResponse = await fetchWithTimeout(
       "https://open.er-api.com/v6/latest/USD",
-      {},
+      { cache: "no-store" },
       15000
     )
     if (ratesResponse.ok) {

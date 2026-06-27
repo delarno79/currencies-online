@@ -8,6 +8,15 @@ export const supabase = createClient(supabaseUrl, supabaseKey, {
   auth: {
     persistSession: false,
     autoRefreshToken: false
+  },
+  global: {
+    fetch: (url, options) => {
+      return fetch(url, {
+        ...options,
+        cache: "no-store",
+        next: { revalidate: 0 }
+      })
+    }
   }
 })
 
