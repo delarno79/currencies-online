@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://currencies.global"),
 }
 
+import { cookies } from "next/headers"
 import { getCachedSystemSettings } from "@/lib/data-cache"
 
 export default async function RootLayout({
@@ -25,6 +26,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  await cookies()
   const settingsList = await getCachedSystemSettings()
   
   const getSetting = (key: string, defaultValue: string) => {
