@@ -375,9 +375,15 @@ const getFlag = (code: string) => {
 
 interface PopularPairsProps {
   initialPairs?: CurrencyPair[]
+  title?: string
+  subtitle?: string
 }
 
-export function PopularPairs({ initialPairs }: PopularPairsProps) {
+export function PopularPairs({
+  initialPairs,
+  title = "Most Popular Currency Pairs",
+  subtitle = "Quickly access real-time conversion rates and charts for high-traffic trading pairs.",
+}: PopularPairsProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const pairs = initialPairs && initialPairs.length > 0 ? initialPairs : POPULAR_PAIRS
 
@@ -387,11 +393,10 @@ export function PopularPairs({ initialPairs }: PopularPairsProps) {
         <div>
           <h2 className="flex items-center gap-2 font-bold font-heading text-2xl text-foreground tracking-tight sm:text-3xl">
             <RefreshCw className="h-6 w-6 text-primary" />
-            Most Popular Currency Pairs
+            {title}
           </h2>
           <p className="mt-2 text-muted-foreground text-sm">
-            Quickly access real-time conversion rates and charts for
-            high-traffic trading pairs.
+            {subtitle}
           </p>
         </div>
       </div>

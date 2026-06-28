@@ -322,8 +322,15 @@ export default async function Home() {
         subtitle={liveRatesSubtitle || undefined}
       />
 
-      {/* 7. Most Popular Currency Pairs Section */}
-      <PopularPairs initialPairs={parsedPairs} />
+      {/* 7. Most Popular Currency Pairs Section (Static) */}
+      <PopularPairs />
+
+      {/* 7b. Most Popular Currency Exchange Globally Section (Dynamic Settings) */}
+      <PopularPairs
+        title="Most Popular Currency Exchange Globally"
+        subtitle="Configure custom exchange pairs and display names in your admin settings."
+        initialPairs={parsedPairs}
+      />
 
       {/* 8. 8 Common Currency Exchange Mistakes to Avoid Section */}
       <ExchangeMistakes
