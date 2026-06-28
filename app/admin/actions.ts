@@ -329,6 +329,9 @@ export async function updateSystemSettingsAction(
 ) {
   const heroTitle = formData.get("heroTitle") as string
   const heroSubtitle = formData.get("heroSubtitle") as string
+  const heroSearchBtnText = formData.get("heroSearchBtnText") as string
+  const heroSearchPlaceholder = formData.get("heroSearchPlaceholder") as string
+  const heroPopularSearches = formData.get("heroPopularSearches") as string
   const popularCurrencies = formData.get("popularCurrencies") as string
   const popularPairs = formData.get("popularPairs") as string
   const popularPairsStandard = formData.get("popularPairsStandard") as string
@@ -390,6 +393,9 @@ export async function updateSystemSettingsAction(
     const settings = [
       { key: "hero_title", value: heroTitle || "" },
       { key: "hero_subtitle", value: heroSubtitle || "" },
+      { key: "hero_search_btn_text", value: heroSearchBtnText || "" },
+      { key: "hero_search_placeholder", value: heroSearchPlaceholder || "" },
+      { key: "hero_popular_searches", value: heroPopularSearches || "" },
       { key: "popular_currencies", value: popularCurrencies || "" },
       { key: "popular_pairs", value: popularPairs || "" },
       { key: "popular_pairs_standard", value: popularPairsStandard || "" },

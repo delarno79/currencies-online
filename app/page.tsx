@@ -211,6 +211,9 @@ export default async function Home() {
 
   const heroTitle = getSetting("hero_title", "")
   const heroSubtitle = getSetting("hero_subtitle", "")
+  const heroSearchBtnText = getSetting("hero_search_btn_text", "")
+  const heroSearchPlaceholder = getSetting("hero_search_placeholder", "")
+  const heroPopularSearches = getSetting("hero_popular_searches", "")
 
   const popularPairsTitle = getSetting("popular_pairs_title", "")
   const popularPairsSubtitle = getSetting("popular_pairs_subtitle", "")
@@ -316,6 +319,9 @@ export default async function Home() {
         initialCurrencies={currencies}
         title={heroTitle || undefined}
         subtitle={heroSubtitle || undefined}
+        searchBtnText={heroSearchBtnText || undefined}
+        searchPlaceholder={heroSearchPlaceholder || undefined}
+        popularSearches={heroPopularSearches || undefined}
       />
 
       {/* 2. Adsense Block (Immediately below search area) */}

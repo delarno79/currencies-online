@@ -22,6 +22,18 @@ export default async function AdminSettingsPage() {
     "hero_subtitle",
     "Search any country's official currency, currency code, symbol, and live exchange rates. Your ultimate global currency converter resource."
   )
+  const heroSearchBtnText = getSetting(
+    "hero_search_btn_text",
+    "Search Currency"
+  )
+  const heroSearchPlaceholder = getSetting(
+    "hero_search_placeholder",
+    "Enter a country name (e.g., Japan, India, United States)"
+  )
+  const heroPopularSearches = getSetting(
+    "hero_popular_searches",
+    "United States | united-states, Japan | japan, India | india, Brazil | brazil, Germany | germany, France | france, Canada | canada, Australia | australia"
+  )
 
   // 4 Cards View
   const card1Title = getSetting("card_1_title", "Currency Converter")
@@ -176,6 +188,9 @@ export default async function AdminSettingsPage() {
         currentUsername={currentUsername}
         heroTitle={heroTitle}
         heroSubtitle={heroSubtitle}
+        heroSearchBtnText={heroSearchBtnText}
+        heroSearchPlaceholder={heroSearchPlaceholder}
+        heroPopularSearches={heroPopularSearches}
         card1Title={card1Title}
         card1Desc={card1Desc}
         card1Btn={card1Btn}

@@ -31,6 +31,9 @@ interface HeroProps {
   initialCurrencies?: Currency[]
   title?: string
   subtitle?: string
+  searchBtnText?: string
+  searchPlaceholder?: string
+  popularSearches?: string
 }
 
 // Background currency symbols scattered across the hero
@@ -162,10 +165,36 @@ export function Hero({
   initialCurrencies,
   title,
   subtitle,
+  searchBtnText,
+  searchPlaceholder,
+  popularSearches,
 }: HeroProps) {
   const countries = initialCountries || staticCountries
   const currencies = initialCurrencies || staticCurrencies
   const router = useRouter()
+
+  const parsedPopularSearches = popularSearches
+    ? popularSearches
+        .split(",")
+        .map((p) => {
+          const parts = p.trim().split("|")
+          return {
+            name: parts[0]?.trim() || "",
+            id: parts[1]?.trim() || "",
+          }
+        })
+        .filter((p) => p.name && p.id)
+    : [
+        { name: "United States", id: "united-states" },
+        { name: "Japan", id: "japan" },
+        { name: "India", id: "india" },
+        { name: "Brazil", id: "brazil" },
+        { name: "Germany", id: "germany" },
+        { name: "France", id: "france" },
+        { name: "Canada", id: "canada" },
+        { name: "Australia", id: "australia" },
+      ]
+
   const [query, setQuery] = useState("")
   const [suggestions, setSuggestions] = useState<
     {
@@ -366,7 +395,10 @@ export function Hero({
                 <InputGroup className="h-14 flex-1 rounded-lg border border-primary/50 bg-background">
                   <InputGroupInput
                     type="text"
-                    placeholder="Enter a country name (e.g., Japan, India, United States)"
+                    placeholder={
+                      searchPlaceholder ||
+                      "Enter a country name (e.g., Japan, India, United States)"
+                    }
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     onFocus={() => query.trim().length >= 2 && setIsOpen(true)}
@@ -379,7 +411,7 @@ export function Hero({
                       className="h-10 cursor-pointer gap-1.5 rounded-md px-4"
                     >
                       <Search data-icon="inline-start" />
-                      Search Currency
+                      {searchBtnText || "Search Currency"}
                     </InputGroupButton>
                   </InputGroupAddon>
                 </InputGroup>
@@ -432,16 +464,7 @@ export function Hero({
               <span className="mr-1 font-semibold text-slate-500 dark:text-slate-400">
                 Popular searches:
               </span>
-              {[
-                { name: "United States", id: "united-states" },
-                { name: "Japan", id: "japan" },
-                { name: "India", id: "india" },
-                { name: "Brazil", id: "brazil" },
-                { name: "Germany", id: "germany" },
-                { name: "France", id: "france" },
-                { name: "Canada", id: "canada" },
-                { name: "Australia", id: "australia" },
-              ].map((item) => (
+              {parsedPopularSearches.map((item) => (
                 <Badge
                   key={item.id}
                   variant="outline"

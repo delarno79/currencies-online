@@ -13,6 +13,7 @@ import {
   MapPin,
   Megaphone,
   TrendingUp,
+  Globe,
 } from "lucide-react"
 import {
   updateAdminCredentialsAction,
@@ -23,6 +24,9 @@ interface SettingsFormsProps {
   currentUsername: string
   heroTitle: string
   heroSubtitle: string
+  heroSearchBtnText: string
+  heroSearchPlaceholder: string
+  heroPopularSearches: string
   card1Title: string
   card1Desc: string
   card1Btn: string
@@ -72,6 +76,7 @@ type TabType =
   | "nearme"
   | "popcurrency"
   | "pop_exchange"
+  | "pop_exchange_global"
   | "live_rates"
   | "facts"
   | "mistakes"
@@ -82,6 +87,9 @@ export function SettingsForms({
   currentUsername,
   heroTitle,
   heroSubtitle,
+  heroSearchBtnText,
+  heroSearchPlaceholder,
+  heroPopularSearches,
   card1Title,
   card1Desc,
   card1Btn,
@@ -143,6 +151,7 @@ export function SettingsForms({
     { id: "popcurrency", label: "Popular Badges", icon: Coins },
     { id: "live_rates", label: "Live Rates", icon: Activity },
     { id: "pop_exchange", label: "Exchange Pairs Grid", icon: TrendingUp },
+    { id: "pop_exchange_global", label: "Exchange Globally Grid", icon: Globe },
     { id: "facts", label: "Currency Facts", icon: HelpCircle },
     { id: "mistakes", label: "Exchange Mistakes", icon: AlertTriangle },
     { id: "regions", label: "Regions Map", icon: Compass },
@@ -298,6 +307,43 @@ export function SettingsForms({
                   rows={3}
                   className="w-full resize-none rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-slate-100 transition focus:border-blue-500 focus:outline-none"
                 />
+              </div>
+              <div>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Search Button Label
+                </label>
+                <input
+                  type="text"
+                  name="heroSearchBtnText"
+                  defaultValue={heroSearchBtnText}
+                  className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-slate-100 transition focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Search Input Placeholder
+                </label>
+                <input
+                  type="text"
+                  name="heroSearchPlaceholder"
+                  defaultValue={heroSearchPlaceholder}
+                  className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-slate-100 transition focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Popular Searches links (Comma and Pipe-separated Name | Slug)
+                </label>
+                <input
+                  type="text"
+                  name="heroPopularSearches"
+                  defaultValue={heroPopularSearches}
+                  className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-slate-100 transition focus:border-blue-500 focus:outline-none"
+                />
+                <p className="mt-1 text-slate-500 text-xs">
+                  Example: United States | united-states, Japan | japan, India |
+                  india
+                </p>
               </div>
             </div>
 
@@ -612,25 +658,20 @@ export function SettingsForms({
               </div>
             </div>
 
-            {/* Tab: Most Popular Currency Exchange */}
+            {/* Tab: Most Popular Currency Pairs */}
             <div
               className={activeTab === "pop_exchange" ? "space-y-6" : "hidden"}
             >
               <div>
                 <h2 className="font-bold text-white text-xl">
-                  Most Popular Currency Exchange Settings
+                  Most Popular Currency Pairs Settings
                 </h2>
                 <p className="mt-2 text-slate-400 text-sm">
-                  Configure both currency exchange grids displayed on the
-                  homepage.
+                  Configure the currency pairs grid display options.
                 </p>
               </div>
               <div className="space-y-6">
-                {/* Section 1 customization */}
                 <div className="rounded-lg border border-slate-700 bg-slate-800/40 p-4 space-y-4">
-                  <h3 className="text-sm font-bold text-blue-400">
-                    1. Most Popular Currency Pairs Section
-                  </h3>
                   <div>
                     <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
                       Section Title
@@ -660,7 +701,7 @@ export function SettingsForms({
                     <textarea
                       name="popularPairsStandard"
                       defaultValue={popularPairsStandard}
-                      rows={4}
+                      rows={5}
                       className="w-full resize-none font-mono text-sm rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-slate-100 transition focus:border-blue-500 focus:outline-none"
                     />
                     <p className="mt-1 text-slate-500 text-xs">
@@ -669,12 +710,26 @@ export function SettingsForms({
                     </p>
                   </div>
                 </div>
+              </div>
+            </div>
 
-                {/* Section 2 customization */}
+            {/* Tab: Most Popular Currency Exchange Globally */}
+            <div
+              className={
+                activeTab === "pop_exchange_global" ? "space-y-6" : "hidden"
+              }
+            >
+              <div>
+                <h2 className="font-bold text-white text-xl">
+                  Most Popular Currency Exchange Globally Settings
+                </h2>
+                <p className="mt-2 text-slate-400 text-sm">
+                  Configure the global currency exchange grid display options
+                  (Block 2).
+                </p>
+              </div>
+              <div className="space-y-6">
                 <div className="rounded-lg border border-slate-700 bg-slate-800/40 p-4 space-y-4">
-                  <h3 className="text-sm font-bold text-blue-400">
-                    2. Most Popular Currency Exchange Globally Section
-                  </h3>
                   <div>
                     <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
                       Section Title
@@ -704,7 +759,7 @@ export function SettingsForms({
                     <textarea
                       name="popularPairs"
                       defaultValue={popularPairs}
-                      rows={4}
+                      rows={5}
                       className="w-full resize-none font-mono text-sm rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-slate-100 transition focus:border-blue-500 focus:outline-none"
                     />
                     <p className="mt-1 text-slate-500 text-xs">
@@ -951,6 +1006,21 @@ export function SettingsForms({
               <>
                 <input type="hidden" name="heroTitle" value={heroTitle} />
                 <input type="hidden" name="heroSubtitle" value={heroSubtitle} />
+                <input
+                  type="hidden"
+                  name="heroSearchBtnText"
+                  value={heroSearchBtnText}
+                />
+                <input
+                  type="hidden"
+                  name="heroSearchPlaceholder"
+                  value={heroSearchPlaceholder}
+                />
+                <input
+                  type="hidden"
+                  name="heroPopularSearches"
+                  value={heroPopularSearches}
+                />
               </>
             )}
             {activeTab !== "cards" && (
@@ -1008,7 +1078,6 @@ export function SettingsForms({
             )}
             {activeTab !== "pop_exchange" && (
               <>
-                <input type="hidden" name="popularPairs" value={popularPairs} />
                 <input
                   type="hidden"
                   name="popularPairsStandard"
@@ -1024,6 +1093,11 @@ export function SettingsForms({
                   name="popularPairsSubtitle"
                   value={popularPairsSubtitle}
                 />
+              </>
+            )}
+            {activeTab !== "pop_exchange_global" && (
+              <>
+                <input type="hidden" name="popularPairs" value={popularPairs} />
                 <input
                   type="hidden"
                   name="popularPairsGlobalTitle"
