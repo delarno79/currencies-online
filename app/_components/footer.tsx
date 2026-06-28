@@ -1,6 +1,6 @@
 "use client"
 
-import { Activity, Coins, DollarSign, Globe, Link2 } from "lucide-react"
+import { Activity, Building2, Coins, DollarSign, Globe, Link2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -116,7 +116,7 @@ export function Footer() {
       <div className="container mx-auto max-w-[1440px] px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-6 xl:gap-12">
           {/* Column 1: Brand Info & Socials */}
-          <div className="space-y-6 lg:col-span-2">
+          <div className="space-y-6 lg:col-span-1">
             <Link href="/" className="inline-flex items-center gap-2">
               <Image
                 src="/logo-3-small.png"
@@ -262,60 +262,60 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 5 & 6: Quick Links & Company */}
-          <div className="flex flex-col gap-8 lg:col-span-1">
-            <div>
-              <h3 className="flex items-center gap-2 font-bold text-white text-xs uppercase tracking-wider">
-                <Link2 className="h-3.5 w-3.5 text-primary" />
-                Quick Links
-              </h3>
-              <ul className="mt-4 space-y-2">
-                {[
-                  { name: "Currency Converter", href: "/converter" },
-                  { name: "Compare", href: "/compare" },
-                  { name: "Exchange Rates", href: "/exchange-rates" },
-                  { name: "Countries", href: "/countries" },
-                  { name: "Currencies", href: "/currencies" },
-                  { name: "Blog", href: "/blog" },
-                ].map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="text-slate-400 text-xs transition-colors duration-150 hover:text-white"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Column 5: Quick Links */}
+          <div>
+            <h3 className="flex items-center gap-2 font-bold text-white text-xs uppercase tracking-wider">
+              <Link2 className="h-3.5 w-3.5 text-primary" />
+              Quick Links
+            </h3>
+            <ul className="mt-4 space-y-2">
+              {[
+                { name: "Currency Converter", href: "/converter" },
+                { name: "Compare", href: "/compare" },
+                { name: "Exchange Rates", href: "/exchange-rates" },
+                { name: "Countries", href: "/countries" },
+                { name: "Currencies", href: "/currencies" },
+                { name: "Blog", href: "/blog" },
+              ].map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-slate-400 text-xs transition-colors duration-150 hover:text-white"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            <div>
-              <h3 className="font-bold text-white text-xs uppercase tracking-wider">
-                Company
-              </h3>
-              <ul className="mt-4 space-y-2">
-                {[
-                  { name: "About Us", href: "/about" },
-                  { name: "Contact Us", href: "/contact" },
-                  { name: "FAQs", href: "/faqs" },
-                  { name: "Privacy Policy", href: "/privacy" },
-                  { name: "Terms of Service", href: "/terms" },
-                  { name: "Disclaimer", href: "/disclaimer" },
-                  { name: "Sitemap", href: "/sitemap" },
-                  { name: "XML Sitemap", href: "/sitemap.xml" },
-                ].map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="text-slate-400 text-xs transition-colors duration-150 hover:text-white"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Column 6: Company */}
+          <div>
+            <h3 className="flex items-center gap-2 font-bold text-white text-xs uppercase tracking-wider">
+              <Building2 className="h-3.5 w-3.5 text-primary" />
+              Company
+            </h3>
+            <ul className="mt-4 space-y-2">
+              {[
+                { name: "About Us", href: "/about" },
+                { name: "Contact Us", href: "/contact" },
+                { name: "FAQs", href: "/faqs" },
+                { name: "Privacy Policy", href: "/privacy" },
+                { name: "Terms of Service", href: "/terms" },
+                { name: "Disclaimer", href: "/disclaimer" },
+                { name: "Sitemap", href: "/sitemap" },
+                { name: "XML Sitemap", href: "/sitemap.xml" },
+              ].map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className="text-slate-400 text-xs transition-colors duration-150 hover:text-white"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
