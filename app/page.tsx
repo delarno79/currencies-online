@@ -1,3 +1,4 @@
+// Trigger auto-deploy: updated homepage sections customization configuration
 import type { Metadata } from "next"
 import { Adsense } from "@/app/_components/adsense"
 import { BrowseRegions } from "@/app/_components/browse-regions"
