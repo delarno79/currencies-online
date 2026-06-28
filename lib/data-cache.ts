@@ -16,7 +16,8 @@ export async function getCachedCountries() {
 
 export async function getCachedCountry(id: string) {
   const allCountries = await getCachedCountries()
-  return allCountries.find((c) => c.id === id)
+  const cleanId = id.endsWith("-currency") ? id.slice(0, -9) : id
+  return allCountries.find((c) => c.id === cleanId)
 }
 
 export async function getCachedCurrencies() {

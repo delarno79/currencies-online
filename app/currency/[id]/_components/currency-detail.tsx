@@ -101,14 +101,18 @@ export function CurrencyDetail({
             </h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {usingCountries.map((c) => (
-                <Link key={c.id} href={`/country/${c.id}`} className="group">
+                <Link
+                  key={c.id}
+                  href={`/country/${c.id}-currency`}
+                  className="group"
+                >
                   <Card className="border border-border transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
                     <CardContent className="flex items-center justify-between p-4">
                       <div className="flex items-center gap-3">
                         <span className="text-3xl leading-none">{c.flag}</span>
                         <div>
                           <h3 className="font-bold text-foreground text-sm transition-colors group-hover:text-primary">
-                            {c.name}
+                            {c.name} Currency
                           </h3>
                           <span className="mt-0.5 flex items-center gap-1 font-medium text-[11px] text-muted-foreground">
                             <MapPin className="h-3 w-3" />

@@ -11,7 +11,7 @@ interface CountryCardProps {
 
 export function CountryCard({ country }: CountryCardProps) {
   return (
-    <Link href={`/country/${country.id}`} className="group block">
+    <Link href={`/country/${country.id}-currency`} className="group block">
       <Card className="h-full border border-border transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">
         <CardContent className="flex h-full flex-col justify-between gap-5 p-6">
           {/* Top: Flag and Name */}
@@ -26,7 +26,7 @@ export function CountryCard({ country }: CountryCardProps) {
               </span>
               <div>
                 <h3 className="font-bold text-foreground text-lg transition-colors group-hover:text-primary">
-                  {country.name}
+                  {country.name} Currency
                 </h3>
                 <span className="mt-0.5 flex items-center gap-1 font-medium text-muted-foreground text-xs">
                   <MapPin className="h-3 w-3" />

@@ -70,7 +70,7 @@ export async function CountryDetail({ country }: CountryDetailProps) {
                   </span>
                   <div>
                     <h1 className="font-extrabold font-heading text-3xl text-foreground tracking-tight sm:text-4xl">
-                      {country.name}
+                      {country.name} Currency
                     </h1>
                     <span className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-1 font-semibold text-muted-foreground text-xs">
                       <Globe className="h-3 w-3" />
@@ -132,7 +132,7 @@ export async function CountryDetail({ country }: CountryDetailProps) {
               {relatedList.map((rel) => (
                 <Link
                   key={rel.id}
-                  href={`/country/${rel.id}`}
+                  href={`/country/${rel.id}-currency`}
                   className="group"
                 >
                   <Card className="border border-border transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
@@ -143,7 +143,7 @@ export async function CountryDetail({ country }: CountryDetailProps) {
                         </span>
                         <div>
                           <h3 className="font-bold text-foreground text-sm transition-colors group-hover:text-primary">
-                            {rel.name}
+                            {rel.name} Currency
                           </h3>
                           <p className="text-muted-foreground text-xs">
                             {rel.capital}

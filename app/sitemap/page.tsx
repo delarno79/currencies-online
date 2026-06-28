@@ -216,11 +216,11 @@ export default async function SitemapPage() {
                 {countries.map((c) => (
                   <li key={c.id}>
                     <Link
-                      href={`/country/${c.id}`}
+                      href={`/country/${c.id}-currency`}
                       className="flex items-center gap-1.5 font-medium transition-colors hover:text-primary"
                     >
                       <span>{c.flag}</span>
-                      <span>{c.name}</span>
+                      <span>{c.name} Currency</span>
                     </Link>
                   </li>
                 ))}

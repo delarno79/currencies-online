@@ -238,7 +238,7 @@ export function Hero({
       .slice(0, 4)
       .map((c) => ({
         type: "country" as const,
-        name: c.name,
+        name: `${c.name} Currency`,
         id: c.id,
         flagOrSymbol: c.flag,
         code: c.currencyCode,
@@ -267,7 +267,7 @@ export function Hero({
     setQuery("")
     setIsOpen(false)
     if (item.type === "country") {
-      router.push(`/country/${item.id}`)
+      router.push(`/country/${item.id}-currency`)
     } else {
       router.push(`/currency/${item.id}`)
     }
@@ -284,7 +284,7 @@ export function Hero({
         c.currencyCode.toLowerCase() === query.toLowerCase().trim()
     )
     if (matchedCountry) {
-      router.push(`/country/${matchedCountry.id}`)
+      router.push(`/country/${matchedCountry.id}-currency`)
       return
     }
 
@@ -468,10 +468,10 @@ export function Hero({
                 <Badge
                   key={item.id}
                   variant="outline"
-                  onClick={() => router.push(`/country/${item.id}`)}
+                  onClick={() => router.push(`/country/${item.id}-currency`)}
                   className="h-6 cursor-pointer rounded-md border-blue-300 bg-blue-50/10 px-2.5 font-semibold text-[#1a56db] transition-colors hover:bg-blue-50/80 dark:border-blue-800 dark:bg-blue-950/5 dark:text-blue-400 dark:hover:bg-blue-950/30"
                 >
-                  {item.name}
+                  {item.name} Currency
                 </Badge>
               ))}
             </div>

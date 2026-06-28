@@ -1,6 +1,13 @@
 "use client"
 
-import { Activity, Building2, Coins, DollarSign, Globe, Link2 } from "lucide-react"
+import {
+  Activity,
+  Building2,
+  Coins,
+  DollarSign,
+  Globe,
+  Link2,
+} from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -165,19 +172,25 @@ export function Footer() {
             </h3>
             <ul className="mt-4 space-y-2">
               {[
-                { name: "Japan Currency", href: "/country/japan" },
-                { name: "India Currency", href: "/country/india" },
-                { name: "China Currency", href: "/country/china" },
-                { name: "Canada Currency", href: "/country/canada" },
-                { name: "Mexico Currency", href: "/country/mexico" },
-                { name: "Brazil Currency", href: "/country/brazil" },
-                { name: "Australia Currency", href: "/country/australia" },
+                { name: "Japan Currency", href: "/country/japan-currency" },
+                { name: "India Currency", href: "/country/india-currency" },
+                { name: "China Currency", href: "/country/china-currency" },
+                { name: "Canada Currency", href: "/country/canada-currency" },
+                { name: "Mexico Currency", href: "/country/mexico-currency" },
+                { name: "Brazil Currency", href: "/country/brazil-currency" },
+                {
+                  name: "Australia Currency",
+                  href: "/country/australia-currency",
+                },
                 {
                   name: "United Kingdom Currency",
-                  href: "/country/united-kingdom",
+                  href: "/country/united-kingdom-currency",
                 },
-                { name: "Germany Currency", href: "/country/germany" },
-                { name: "South Korea Currency", href: "/country/south-korea" },
+                { name: "Germany Currency", href: "/country/germany-currency" },
+                {
+                  name: "South Korea Currency",
+                  href: "/country/south-korea-currency",
+                },
               ].map((link) => (
                 <li key={link.name}>
                   <Link

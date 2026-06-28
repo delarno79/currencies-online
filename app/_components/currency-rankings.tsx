@@ -62,14 +62,14 @@ export async function CurrencyRankings() {
                       </td>
                       <td className="p-4 font-sans font-semibold text-foreground">
                         <Link
-                          href={`/country/${country.id}`}
+                          href={`/country/${country.id}-currency`}
                           className="flex items-center gap-2 transition-colors hover:text-primary"
                         >
                           <span className="text-lg leading-none">
                             {country.flag}
                           </span>
                           <span>
-                            {country.currencyCode} - {country.name}
+                            {country.currencyCode} - {country.name} Currency
                           </span>
                         </Link>
                       </td>
@@ -115,13 +115,13 @@ export async function CurrencyRankings() {
                       </td>
                       <td className="p-4 font-sans font-semibold text-foreground">
                         <Link
-                          href={`/country/${country.id}`}
+                          href={`/country/${country.id}-currency`}
                           className="flex items-center gap-2 transition-colors hover:text-primary"
                         >
                           <span className="text-lg leading-none">
                             {country.flag}
                           </span>
-                          <span>{country.name}</span>
+                          <span>{country.name} Currency</span>
                         </Link>
                       </td>
                       <td className="p-4 text-right font-bold text-primary">

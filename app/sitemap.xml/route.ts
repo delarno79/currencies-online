@@ -42,7 +42,7 @@ export async function GET() {
   // 2. Country pages
   for (const country of countries) {
     xmlUrls.push(
-      `<url><loc>${BASE_URL}/country/${country.id}</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>`
+      `<url><loc>${BASE_URL}/country/${country.id}-currency</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>`
     )
   }
 
