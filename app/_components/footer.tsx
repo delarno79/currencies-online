@@ -263,7 +263,7 @@ export function Footer() {
           </div>
 
           {/* Column 5 & 6: Quick Links & Company */}
-          <div className="grid grid-cols-2 gap-4 lg:col-span-1 lg:flex lg:flex-col lg:gap-8">
+          <div className="flex flex-col gap-8 lg:col-span-1">
             <div>
               <h3 className="flex items-center gap-2 font-bold text-white text-xs uppercase tracking-wider">
                 <Coins className="h-3.5 w-3.5 text-primary" />
