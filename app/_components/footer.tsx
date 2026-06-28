@@ -1,6 +1,6 @@
 "use client"
 
-import { Activity, Coins, DollarSign, Globe } from "lucide-react"
+import { Activity, Coins, DollarSign, Globe, Link2 } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -266,7 +266,7 @@ export function Footer() {
           <div className="flex flex-col gap-8 lg:col-span-1">
             <div>
               <h3 className="flex items-center gap-2 font-bold text-white text-xs uppercase tracking-wider">
-                <Coins className="h-3.5 w-3.5 text-primary" />
+                <Link2 className="h-3.5 w-3.5 text-primary" />
                 Quick Links
               </h3>
               <ul className="mt-4 space-y-2">
