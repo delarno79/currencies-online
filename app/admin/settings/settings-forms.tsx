@@ -1,6 +1,6 @@
 "use client"
 
-import { useActionState, useState } from "react"
+import { useActionState, useEffect, useState } from "react"
 import {
   Activity,
   AlertTriangle,
@@ -14,6 +14,7 @@ import {
   Megaphone,
   TrendingUp,
   Globe,
+  X,
 } from "lucide-react"
 import {
   updateAdminCredentialsAction,
@@ -142,6 +143,21 @@ export function SettingsForms({
     null
   )
 
+  const [showSysSuccess, setShowSysSuccess] = useState(false)
+  const [showCredSuccess, setShowCredSuccess] = useState(false)
+
+  useEffect(() => {
+    if (sysState?.success) {
+      setShowSysSuccess(true)
+    }
+  }, [sysState?.success])
+
+  useEffect(() => {
+    if (credState?.success) {
+      setShowCredSuccess(true)
+    }
+  }, [credState?.success])
+
   const tabs: { id: TabType; label: string; icon: any }[] = [
     { id: "login", label: "Admin Login", icon: Key },
     { id: "adsense", label: "Google AdSense", icon: Megaphone },
@@ -204,9 +220,16 @@ export function SettingsForms({
               {credState.error}
             </div>
           )}
-          {credState?.success && (
-            <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-4 text-emerald-400 text-sm">
-              {credState.success}
+          {credState?.success && showCredSuccess && (
+            <div className="flex items-center justify-between rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-4 text-emerald-400 text-sm">
+              <span>{credState.success}</span>
+              <button
+                type="button"
+                onClick={() => setShowCredSuccess(false)}
+                className="text-emerald-400 hover:text-emerald-300 transition"
+              >
+                <X className="h-4 w-4" />
+              </button>
             </div>
           )}
 
@@ -269,9 +292,16 @@ export function SettingsForms({
               {sysState.error}
             </div>
           )}
-          {sysState?.success && (
-            <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-4 text-emerald-400 text-sm">
-              {sysState.success}
+          {sysState?.success && showSysSuccess && (
+            <div className="flex items-center justify-between rounded-lg border border-emerald-500/20 bg-emerald-500/10 p-4 text-emerald-400 text-sm">
+              <span>{sysState.success}</span>
+              <button
+                type="button"
+                onClick={() => setShowSysSuccess(false)}
+                className="text-emerald-400 hover:text-emerald-300 transition"
+              >
+                <X className="h-4 w-4" />
+              </button>
             </div>
           )}
 
@@ -724,8 +754,7 @@ export function SettingsForms({
                   Most Popular Currency Exchange Globally Settings
                 </h2>
                 <p className="mt-2 text-slate-400 text-sm">
-                  Configure the global currency exchange grid display options
-                  (Block 2).
+                  Configure the global currency exchange grid display options.
                 </p>
               </div>
               <div className="space-y-6">
