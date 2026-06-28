@@ -92,7 +92,7 @@ export default async function AdminSettingsPage() {
   // Most Popular Currency Exchange Settings
   const popularPairs = getSetting(
     "popular_pairs",
-    "USD-EUR, EUR-USD, USD-INR, INR-USD, USD-GBP, GBP-USD, USD-CAD, CAD-USD, USD-AUD, AUD-USD, USD-MXN, USD-JPY, USD-PHP, PHP-USD, MXN-USD, USD-MXN, USD-THB, THB-USD, VND-USD, USD-VND, JPY-USD, USD-JPY, COP-USD, USD-COP, USD-KRW, KRW-USD, CHF-USD, USD-CHF, MXN-USD, USD-PKR, PKR-USD, USD-SGD, SGD-USD, USD-ZAR, ZAR-USD, USD-NPR, NPR-USD, USD-MYR, USD-IDR, NZD-USD, USD-NZD, USD-BDT, USD-PLN, USD-KES, CNY-USD, SEK-USD, CZK-USD, USD-LKR, TRY-USD, USD-NOK, MYR-USD, USD-EGP, HKD-USD"
+    "USD-INR | US dollar to Rupees, USD-GBP | US dollars to Pounds, CAD-USD | Canadian dollar to USD, MXN-USD | Pesos to US dollars, USD-EUR | US dollar to EURO, MXN-USD | Mexican Peso to USD, COP-USD | Colombian Peso to USD, GBP-USD | Pound sterling to USD, JPY-USD | Japanese yen to USD, GBP-USD | British pound to dollar, CHF-USD | Swiss Franc to USD, THB-USD | Baht to US Dollar, USD-JPY | USD to Japanese yen, THB-USD | baht to US Dollar, USD-CNY | US dollar to Rmb, USD-CNY | USD to Chinese yuan, USD-INR | American dollar to INR, GBP-USD | pounds to US dollar"
   )
   const popularPairsStandard = getSetting(
     "popular_pairs_standard",

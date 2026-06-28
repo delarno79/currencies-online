@@ -14,6 +14,8 @@ import {
   getCachedCountries,
   getCachedCurrencies,
   getCachedSystemSettings,
+  getCachedExchangeRates,
+  getCachedHistoricalRates,
 } from "@/lib/data-cache"
 
 export const metadata: Metadata = {
@@ -81,6 +83,7 @@ function resolveCurrencyCode(name: string): string | null {
     "mexican peso": "MXN",
     "mexican pesos": "MXN",
     cny: "CNY",
+    rmb: "CNY",
     yuan: "CNY",
     "chinese yuan": "CNY",
     nzd: "NZD",
@@ -113,12 +116,6 @@ function resolveCurrencyCode(name: string): string | null {
     clean.includes("pound")
   )
     return "GBP"
-  if (
-    clean.includes("united states") ||
-    clean.includes("usd") ||
-    clean.includes("dollar")
-  )
-    return "USD"
   if (clean.includes("euro") || clean.includes("eur")) return "EUR"
   if (clean.includes("yen") || clean.includes("jpy")) return "JPY"
   if (clean.includes("canadian") || clean.includes("cad")) return "CAD"
@@ -127,6 +124,12 @@ function resolveCurrencyCode(name: string): string | null {
   if (clean.includes("hong kong") || clean.includes("hkd")) return "HKD"
   if (clean.includes("new zealand") || clean.includes("nzd")) return "NZD"
   if (clean.includes("rand") || clean.includes("zar")) return "ZAR"
+  if (
+    clean.includes("united states") ||
+    clean.includes("usd") ||
+    clean.includes("dollar")
+  )
+    return "USD"
 
   if (clean.length === 3) return clean.toUpperCase()
   return null
@@ -228,6 +231,31 @@ export default async function Home() {
   )
   const popularPairsSettingGlobal = getSetting("popular_pairs", "")
   const parsedPairsGlobal = parsePairsSetting(popularPairsSettingGlobal)
+
+  // Fetch rates and history for the global pairs to render them with sparklines
+  const exchangeRatesMatrix = await getCachedExchangeRates()
+  const parsedPairsGlobalWithRates = parsedPairsGlobal
+    ? await Promise.all(
+        parsedPairsGlobal.map(async (pair) => {
+          const rateData = exchangeRatesMatrix.find(
+            (r) => r.from === pair.from && r.to === pair.to
+          )
+          const rateValue = rateData?.rate ?? 1.0
+          const dailyChange = rateData?.dailyChange ?? 0.0
+          const history = await getCachedHistoricalRates(
+            pair.from,
+            pair.to,
+            rateValue
+          )
+          return {
+            ...pair,
+            rate: rateValue,
+            dailyChange,
+            history,
+          }
+        })
+      )
+    : undefined
 
   // Retrieve custom props for home components
   const card1Title = getSetting("card_1_title", "")
@@ -385,7 +413,8 @@ export default async function Home() {
       <PopularPairs
         title={popularPairsGlobalTitle || undefined}
         subtitle={popularPairsGlobalSubtitle || undefined}
-        initialPairs={parsedPairsGlobal}
+        initialPairs={parsedPairsGlobalWithRates}
+        variant="sparkline"
       />
 
       {/* 8. 8 Common Currency Exchange Mistakes to Avoid Section */}

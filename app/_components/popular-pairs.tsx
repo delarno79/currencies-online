@@ -1,8 +1,8 @@
 "use client"
 
-import { ArrowRight, ChevronDown, ChevronUp, RefreshCw } from "lucide-react"
+import { ArrowDownRight, ArrowRight, ArrowUpRight, ChevronDown, ChevronUp, RefreshCw } from "lucide-react"
 import Link from "next/link"
-import { useState } from "react"
+import { useId, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
@@ -12,6 +12,9 @@ interface CurrencyPair {
   from: string
   to: string
   href: string
+  rate?: number
+  dailyChange?: number
+  history?: any[]
 }
 
 const POPULAR_PAIRS: CurrencyPair[] = [
@@ -373,16 +376,78 @@ const getFlag = (code: string) => {
   return flags[code.toUpperCase()] || "🏳️"
 }
 
+function Sparkline({
+  history,
+  isUp,
+  from,
+  to,
+}: {
+  history: { rate: number }[]
+  isUp: boolean
+  from: string
+  to: string
+}) {
+  const rates = history.map((h) => h.rate)
+  const min = Math.min(...rates)
+  const max = Math.max(...rates)
+  const range = max - min || 1
+
+  const width = 120
+  const height = 35
+  const padding = 2
+
+  const points = rates.map((r, i) => {
+    const x = (i / (rates.length - 1)) * width
+    const y = padding + (height - 2 * padding) * (1 - (r - min) / range)
+    return { x, y }
+  })
+
+  const pathD = `M ${points.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" L ")}`
+  const fillD = `${pathD} L ${width},${height} L 0,${height} Z`
+
+  const uniqueId = useId()
+  const cleanId = uniqueId.replace(/:/g, "")
+  const strokeColor = isUp ? "#10b981" : "#ef4444"
+  const gradientId = `sparkline-grad-${from.toLowerCase()}-${to.toLowerCase()}-${cleanId}`
+
+  return (
+    <svg
+      className="h-[35px] w-full"
+      viewBox={`0 0 ${width} ${height}`}
+      preserveAspectRatio="none"
+    >
+      <title>Sparkline rate trend</title>
+      <defs>
+        <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={strokeColor} stopOpacity="0.25" />
+          <stop offset="100%" stopColor={strokeColor} stopOpacity="0.00" />
+        </linearGradient>
+      </defs>
+      <path d={fillD} fill={`url(#${gradientId})`} />
+      <path
+        d={pathD}
+        fill="none"
+        stroke={strokeColor}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 interface PopularPairsProps {
   initialPairs?: CurrencyPair[]
   title?: string
   subtitle?: string
+  variant?: "standard" | "sparkline"
 }
 
 export function PopularPairs({
   initialPairs,
   title = "Most Popular Currency Pairs",
   subtitle = "Quickly access real-time conversion rates and charts for high-traffic trading pairs.",
+  variant = "standard",
 }: PopularPairsProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const pairs =
@@ -400,11 +465,81 @@ export function PopularPairs({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
+      <div
+        className={cn(
+          "grid gap-5",
+          variant === "sparkline"
+            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+            : "grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8"
+        )}
+      >
         {pairs.map((pair, index) => {
           const fromFlag = getFlag(pair.from)
           const toFlag = getFlag(pair.to)
-          const isHidden = !isExpanded && index >= 32
+          const isHidden = variant === "standard" && !isExpanded && index >= 32
+
+          if (variant === "sparkline") {
+            const rateVal = pair.rate ?? 1.0
+            const dailyChangeVal = pair.dailyChange ?? 0.0
+            const isUp = dailyChangeVal >= 0
+            const historyVal = pair.history && pair.history.length > 0
+              ? pair.history
+              : [{ rate: rateVal }, { rate: rateVal }]
+
+            return (
+              <Link
+                key={`${pair.from}-${pair.to}-${index}`}
+                href={pair.href}
+                className="group block"
+              >
+                <Card className="h-full overflow-hidden border border-border bg-card/40 transition-all duration-300 hover:border-primary/20 hover:bg-card hover:shadow-md">
+                  <CardContent className="flex h-full flex-col justify-between gap-4 p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="select-none text-base">{fromFlag}</span>
+                        <span className="font-bold text-muted-foreground/80 text-xs transition-colors group-hover:text-primary">
+                          {pair.label}
+                        </span>
+                        <span className="select-none text-base">{toFlag}</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1">
+                      <div className="font-extrabold font-mono text-foreground text-lg leading-none tracking-tight">
+                        {rateVal.toFixed(4)}
+                      </div>
+                      <div
+                        className={cn(
+                          "flex items-center gap-0.5 font-bold text-[10px] uppercase",
+                          isUp ? "text-emerald-500" : "text-destructive"
+                        )}
+                      >
+                        {isUp ? (
+                          <ArrowUpRight className="h-3.5 w-3.5" />
+                        ) : (
+                          <ArrowDownRight className="h-3.5 w-3.5" />
+                        )}
+                        <span>
+                          {isUp ? "+" : ""}
+                          {dailyChangeVal.toFixed(2)}%
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="-mx-4 -mb-4 pt-2">
+                      <Sparkline
+                        history={historyVal}
+                        isUp={isUp}
+                        from={pair.from}
+                        to={pair.to}
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            )
+          }
+
           return (
             <Link
               key={`${pair.from}-${pair.to}-${index}`}
@@ -436,25 +571,27 @@ export function PopularPairs({
         })}
       </div>
 
-      <div className="mt-8 flex justify-center">
-        <Button
-          variant="outline"
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="gap-2 border-border px-6 py-5 font-semibold shadow-sm transition-all duration-200 hover:bg-accent hover:text-accent-foreground"
-        >
-          {isExpanded ? (
-            <>
-              <span>Show Less Pairs</span>
-              <ChevronUp className="h-4 w-4" />
-            </>
-          ) : (
-            <>
-              <span>Show All {pairs.length} Pairs</span>
-              <ChevronDown className="h-4 w-4" />
-            </>
-          )}
-        </Button>
-      </div>
+      {variant === "standard" && (
+        <div className="mt-8 flex justify-center">
+          <Button
+            variant="outline"
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="gap-2 border-border px-6 py-5 font-semibold shadow-sm transition-all duration-200 hover:bg-accent hover:text-accent-foreground"
+          >
+            {isExpanded ? (
+              <>
+                <span>Show Less Pairs</span>
+                <ChevronUp className="h-4 w-4" />
+              </>
+            ) : (
+              <>
+                <span>Show All {pairs.length} Pairs</span>
+                <ChevronDown className="h-4 w-4" />
+              </>
+            )}
+          </Button>
+        </div>
+      )}
     </section>
   )
 }
