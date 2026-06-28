@@ -9,7 +9,11 @@ import { Hero } from "@/app/_components/hero"
 import { LatestRates } from "@/app/_components/latest-rates"
 import { PopularCurrencies } from "@/app/_components/popular-currencies"
 import { PopularPairs } from "@/app/_components/popular-pairs"
-import { getCachedCountries, getCachedCurrencies, getCachedSystemSettings } from "@/lib/data-cache"
+import {
+  getCachedCountries,
+  getCachedCurrencies,
+  getCachedSystemSettings,
+} from "@/lib/data-cache"
 
 export const metadata: Metadata = {
   title:
@@ -26,7 +30,10 @@ export const dynamic = "force-dynamic"
 import { db } from "@/lib/db"
 
 function resolveCurrencyCode(name: string): string | null {
-  const clean = name.trim().replace(/^[•\s\-\*\d\.]+/g, "").toLowerCase()
+  const clean = name
+    .trim()
+    .replace(/^[•\s\-\*\d\.]+/g, "")
+    .toLowerCase()
   if (!clean) return null
 
   const directMap: Record<string, string> = {
@@ -92,10 +99,25 @@ function resolveCurrencyCode(name: string): string | null {
   if (clean.includes("colombian") || clean.includes("cop")) return "COP"
   if (clean.includes("philippine") || clean.includes("php")) return "PHP"
   if (clean.includes("mexican") || clean.includes("mxn")) return "MXN"
-  if (clean.includes("indian") || clean.includes("inr") || clean.includes("rupee")) return "INR"
+  if (
+    clean.includes("indian") ||
+    clean.includes("inr") ||
+    clean.includes("rupee")
+  )
+    return "INR"
   if (clean.includes("pakistan") || clean.includes("pkr")) return "PKR"
-  if (clean.includes("british") || clean.includes("gbp") || clean.includes("pound")) return "GBP"
-  if (clean.includes("united states") || clean.includes("usd") || clean.includes("dollar")) return "USD"
+  if (
+    clean.includes("british") ||
+    clean.includes("gbp") ||
+    clean.includes("pound")
+  )
+    return "GBP"
+  if (
+    clean.includes("united states") ||
+    clean.includes("usd") ||
+    clean.includes("dollar")
+  )
+    return "USD"
   if (clean.includes("euro") || clean.includes("eur")) return "EUR"
   if (clean.includes("yen") || clean.includes("jpy")) return "JPY"
   if (clean.includes("canadian") || clean.includes("cad")) return "CAD"
@@ -129,55 +151,65 @@ export default async function Home() {
   const popularPairsSetting = getSetting("popular_pairs", "")
 
   const parsedPairs = popularPairsSetting
-    ? popularPairsSetting
-        .split(/,|\n/)
-        .flatMap((p) => {
-          const cleanedLine = p.trim().replace(/^[•\s\-\*\d\.]+/g, "")
-          if (!cleanedLine) return []
+    ? popularPairsSetting.split(/,|\n/).flatMap((p) => {
+        const cleanedLine = p.trim().replace(/^[•\s\-\*\d\.]+/g, "")
+        if (!cleanedLine) return []
 
-          const parts = cleanedLine.split("|").map((part) => part.trim()).filter(Boolean)
-          if (parts.length === 0) return []
+        const parts = cleanedLine
+          .split("|")
+          .map((part) => part.trim())
+          .filter(Boolean)
+        if (parts.length === 0) return []
 
-          const results: { label: string; from: string; to: string; href: string }[] = []
+        const results: {
+          label: string
+          from: string
+          to: string
+          href: string
+        }[] = []
 
-          for (let i = 0; i < parts.length; i++) {
-            const current = parts[i]
-            const pairCodes = current.split(/\s+to\s+|-/i)
+        for (let i = 0; i < parts.length; i++) {
+          const current = parts[i]
+          const pairCodes = current.split(/\s+to\s+|-/i)
 
-            if (pairCodes.length === 2) {
-              const fromCode = resolveCurrencyCode(pairCodes[0])
-              const toCode = resolveCurrencyCode(pairCodes[1])
+          if (pairCodes.length === 2) {
+            const fromCode = resolveCurrencyCode(pairCodes[0])
+            const toCode = resolveCurrencyCode(pairCodes[1])
 
-              if (fromCode && toCode) {
-                let label = `${fromCode} to ${toCode}`
-                const nextPart = parts[i + 1]
-                if (nextPart) {
-                  const nextPairCodes = nextPart.split(/\s+to\s+|-/i)
-                  let isNextPartAnotherPair = false
-                  if (nextPairCodes.length === 2) {
-                    const nextFrom = resolveCurrencyCode(nextPairCodes[0])
-                    const nextTo = resolveCurrencyCode(nextPairCodes[1])
-                    if (nextFrom && nextTo && (nextFrom !== fromCode || nextTo !== toCode)) {
-                      isNextPartAnotherPair = true
-                    }
-                  }
-                  if (!isNextPartAnotherPair) {
-                    label = nextPart
-                    i++ // consume nextPart as custom label
+            if (fromCode && toCode) {
+              let label = `${fromCode} to ${toCode}`
+              const nextPart = parts[i + 1]
+              if (nextPart) {
+                const nextPairCodes = nextPart.split(/\s+to\s+|-/i)
+                let isNextPartAnotherPair = false
+                if (nextPairCodes.length === 2) {
+                  const nextFrom = resolveCurrencyCode(nextPairCodes[0])
+                  const nextTo = resolveCurrencyCode(nextPairCodes[1])
+                  if (
+                    nextFrom &&
+                    nextTo &&
+                    (nextFrom !== fromCode || nextTo !== toCode)
+                  ) {
+                    isNextPartAnotherPair = true
                   }
                 }
-
-                results.push({
-                  label,
-                  from: fromCode,
-                  to: toCode,
-                  href: `/exchange-rates/${fromCode.toLowerCase()}-to-${toCode.toLowerCase()}`,
-                })
+                if (!isNextPartAnotherPair) {
+                  label = nextPart
+                  i++ // consume nextPart as custom label
+                }
               }
+
+              results.push({
+                label,
+                from: fromCode,
+                to: toCode,
+                href: `/exchange-rates/${fromCode.toLowerCase()}-to-${toCode.toLowerCase()}`,
+              })
             }
           }
-          return results
-        })
+        }
+        return results
+      })
     : undefined
 
   // Retrieve custom props for home components

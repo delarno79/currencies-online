@@ -385,7 +385,8 @@ export function PopularPairs({
   subtitle = "Quickly access real-time conversion rates and charts for high-traffic trading pairs.",
 }: PopularPairsProps) {
   const [isExpanded, setIsExpanded] = useState(false)
-  const pairs = initialPairs && initialPairs.length > 0 ? initialPairs : POPULAR_PAIRS
+  const pairs =
+    initialPairs && initialPairs.length > 0 ? initialPairs : POPULAR_PAIRS
 
   return (
     <section className="mx-auto w-full max-w-[1440px] px-4 py-8 sm:px-6 lg:px-8">
@@ -395,9 +396,7 @@ export function PopularPairs({
             <RefreshCw className="h-6 w-6 text-primary" />
             {title}
           </h2>
-          <p className="mt-2 text-muted-foreground text-sm">
-            {subtitle}
-          </p>
+          <p className="mt-2 text-muted-foreground text-sm">{subtitle}</p>
         </div>
       </div>
 
