@@ -146,71 +146,84 @@ export default async function Home() {
     return settings.find((s) => s.key === key)?.value ?? defaultValue
   }
 
-  const heroTitle = getSetting("hero_title", "")
-  const heroSubtitle = getSetting("hero_subtitle", "")
-  const popularPairsSetting = getSetting("popular_pairs", "")
+  const parsePairsSetting = (settingValue: string) => {
+    if (!settingValue) return undefined
+    return settingValue.split(/,|\n/).flatMap((p) => {
+      const cleanedLine = p.trim().replace(/^[•\s\-\*\d\.]+/g, "")
+      if (!cleanedLine) return []
 
-  const parsedPairs = popularPairsSetting
-    ? popularPairsSetting.split(/,|\n/).flatMap((p) => {
-        const cleanedLine = p.trim().replace(/^[•\s\-\*\d\.]+/g, "")
-        if (!cleanedLine) return []
+      const parts = cleanedLine
+        .split("|")
+        .map((part) => part.trim())
+        .filter(Boolean)
+      if (parts.length === 0) return []
 
-        const parts = cleanedLine
-          .split("|")
-          .map((part) => part.trim())
-          .filter(Boolean)
-        if (parts.length === 0) return []
+      const results: {
+        label: string
+        from: string
+        to: string
+        href: string
+      }[] = []
 
-        const results: {
-          label: string
-          from: string
-          to: string
-          href: string
-        }[] = []
+      for (let i = 0; i < parts.length; i++) {
+        const current = parts[i]
+        const pairCodes = current.split(/\s+to\s+|-/i)
 
-        for (let i = 0; i < parts.length; i++) {
-          const current = parts[i]
-          const pairCodes = current.split(/\s+to\s+|-/i)
+        if (pairCodes.length === 2) {
+          const fromCode = resolveCurrencyCode(pairCodes[0])
+          const toCode = resolveCurrencyCode(pairCodes[1])
 
-          if (pairCodes.length === 2) {
-            const fromCode = resolveCurrencyCode(pairCodes[0])
-            const toCode = resolveCurrencyCode(pairCodes[1])
-
-            if (fromCode && toCode) {
-              let label = `${fromCode} to ${toCode}`
-              const nextPart = parts[i + 1]
-              if (nextPart) {
-                const nextPairCodes = nextPart.split(/\s+to\s+|-/i)
-                let isNextPartAnotherPair = false
-                if (nextPairCodes.length === 2) {
-                  const nextFrom = resolveCurrencyCode(nextPairCodes[0])
-                  const nextTo = resolveCurrencyCode(nextPairCodes[1])
-                  if (
-                    nextFrom &&
-                    nextTo &&
-                    (nextFrom !== fromCode || nextTo !== toCode)
-                  ) {
-                    isNextPartAnotherPair = true
-                  }
-                }
-                if (!isNextPartAnotherPair) {
-                  label = nextPart
-                  i++ // consume nextPart as custom label
+          if (fromCode && toCode) {
+            let label = `${fromCode} to ${toCode}`
+            const nextPart = parts[i + 1]
+            if (nextPart) {
+              const nextPairCodes = nextPart.split(/\s+to\s+|-/i)
+              let isNextPartAnotherPair = false
+              if (nextPairCodes.length === 2) {
+                const nextFrom = resolveCurrencyCode(nextPairCodes[0])
+                const nextTo = resolveCurrencyCode(nextPairCodes[1])
+                if (
+                  nextFrom &&
+                  nextTo &&
+                  (nextFrom !== fromCode || nextTo !== toCode)
+                ) {
+                  isNextPartAnotherPair = true
                 }
               }
-
-              results.push({
-                label,
-                from: fromCode,
-                to: toCode,
-                href: `/exchange-rates/${fromCode.toLowerCase()}-to-${toCode.toLowerCase()}`,
-              })
+              if (!isNextPartAnotherPair) {
+                label = nextPart
+                i++ // consume nextPart as custom label
+              }
             }
+
+            results.push({
+              label,
+              from: fromCode,
+              to: toCode,
+              href: `/exchange-rates/${fromCode.toLowerCase()}-to-${toCode.toLowerCase()}`,
+            })
           }
         }
-        return results
-      })
-    : undefined
+      }
+      return results
+    })
+  }
+
+  const heroTitle = getSetting("hero_title", "")
+  const heroSubtitle = getSetting("hero_subtitle", "")
+
+  const popularPairsTitle = getSetting("popular_pairs_title", "")
+  const popularPairsSubtitle = getSetting("popular_pairs_subtitle", "")
+  const popularPairsSettingStandard = getSetting("popular_pairs_standard", "")
+  const parsedPairsStandard = parsePairsSetting(popularPairsSettingStandard)
+
+  const popularPairsGlobalTitle = getSetting("popular_pairs_global_title", "")
+  const popularPairsGlobalSubtitle = getSetting(
+    "popular_pairs_global_subtitle",
+    ""
+  )
+  const popularPairsSettingGlobal = getSetting("popular_pairs", "")
+  const parsedPairsGlobal = parsePairsSetting(popularPairsSettingGlobal)
 
   // Retrieve custom props for home components
   const card1Title = getSetting("card_1_title", "")
@@ -354,14 +367,18 @@ export default async function Home() {
         subtitle={liveRatesSubtitle || undefined}
       />
 
-      {/* 7. Most Popular Currency Pairs Section (Static) */}
-      <PopularPairs />
-
-      {/* 7b. Most Popular Currency Exchange Globally Section (Dynamic Settings) */}
+      {/* 7. Most Popular Currency Pairs Section */}
       <PopularPairs
-        title="Most Popular Currency Exchange Globally"
-        subtitle="Configure custom exchange pairs and display names in your admin settings."
-        initialPairs={parsedPairs}
+        title={popularPairsTitle || undefined}
+        subtitle={popularPairsSubtitle || undefined}
+        initialPairs={parsedPairsStandard}
+      />
+
+      {/* 7b. Most Popular Currency Exchange Globally Section */}
+      <PopularPairs
+        title={popularPairsGlobalTitle || undefined}
+        subtitle={popularPairsGlobalSubtitle || undefined}
+        initialPairs={parsedPairsGlobal}
       />
 
       {/* 8. 8 Common Currency Exchange Mistakes to Avoid Section */}

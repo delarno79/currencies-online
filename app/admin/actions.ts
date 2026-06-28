@@ -331,8 +331,18 @@ export async function updateSystemSettingsAction(
   const heroSubtitle = formData.get("heroSubtitle") as string
   const popularCurrencies = formData.get("popularCurrencies") as string
   const popularPairs = formData.get("popularPairs") as string
+  const popularPairsStandard = formData.get("popularPairsStandard") as string
+  const popularPairsTitle = formData.get("popularPairsTitle") as string
+  const popularPairsSubtitle = formData.get("popularPairsSubtitle") as string
+  const popularPairsGlobalTitle = formData.get(
+    "popularPairsGlobalTitle"
+  ) as string
+  const popularPairsGlobalSubtitle = formData.get(
+    "popularPairsGlobalSubtitle"
+  ) as string
   const adsenseClientId = formData.get("adsenseClientId") as string
-  const adsenseEnabled = formData.get("adsenseEnabled") === "true" ? "true" : "false"
+  const adsenseEnabled =
+    formData.get("adsenseEnabled") === "true" ? "true" : "false"
   const adsenseGlobalCode = formData.get("adsenseGlobalCode") as string
 
   // Load new text customization fields
@@ -382,6 +392,17 @@ export async function updateSystemSettingsAction(
       { key: "hero_subtitle", value: heroSubtitle || "" },
       { key: "popular_currencies", value: popularCurrencies || "" },
       { key: "popular_pairs", value: popularPairs || "" },
+      { key: "popular_pairs_standard", value: popularPairsStandard || "" },
+      { key: "popular_pairs_title", value: popularPairsTitle || "" },
+      { key: "popular_pairs_subtitle", value: popularPairsSubtitle || "" },
+      {
+        key: "popular_pairs_global_title",
+        value: popularPairsGlobalTitle || "",
+      },
+      {
+        key: "popular_pairs_global_subtitle",
+        value: popularPairsGlobalSubtitle || "",
+      },
       { key: "adsense_client_id", value: adsenseClientId || "" },
       { key: "adsense_enabled", value: adsenseEnabled },
       { key: "adsense_global_code", value: adsenseGlobalCode || "" },

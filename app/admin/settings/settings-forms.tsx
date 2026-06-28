@@ -45,6 +45,11 @@ interface SettingsFormsProps {
   popcurrencySubtitle: string
   popularCurrencies: string
   popularPairs: string
+  popularPairsStandard: string
+  popularPairsTitle: string
+  popularPairsSubtitle: string
+  popularPairsGlobalTitle: string
+  popularPairsGlobalSubtitle: string
   liveRatesTitle: string
   liveRatesSubtitle: string
   factsTitle: string
@@ -99,6 +104,11 @@ export function SettingsForms({
   popcurrencySubtitle,
   popularCurrencies,
   popularPairs,
+  popularPairsStandard,
+  popularPairsTitle,
+  popularPairsSubtitle,
+  popularPairsGlobalTitle,
+  popularPairsGlobalSubtitle,
   liveRatesTitle,
   liveRatesSubtitle,
   factsTitle,
@@ -157,7 +167,9 @@ export function SettingsForms({
                     : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/40"
                 }`}
               >
-                <Icon className={`h-4 w-4 ${isActive ? "text-white animate-pulse" : "text-slate-500"}`} />
+                <Icon
+                  className={`h-4 w-4 ${isActive ? "text-white animate-pulse" : "text-slate-500"}`}
+                />
                 {tab.label}
               </button>
             )
@@ -173,7 +185,8 @@ export function SettingsForms({
               Administrator Login Settings
             </h2>
             <p className="mt-2 text-slate-400 text-sm">
-              Manage username and update password credentials for admin dashboard access.
+              Manage username and update password credentials for admin
+              dashboard access.
             </p>
           </div>
 
@@ -254,15 +267,20 @@ export function SettingsForms({
           )}
 
           <form action={sysAction} className="space-y-6" autoComplete="off">
-            
             {/* Tab: Homepage Hero */}
             <div className={activeTab === "hero" ? "space-y-6" : "hidden"}>
               <div>
-                <h2 className="font-bold text-white text-xl">Homepage Hero Section</h2>
-                <p className="mt-2 text-slate-400 text-sm">Edit the global search banner titles.</p>
+                <h2 className="font-bold text-white text-xl">
+                  Homepage Hero Section
+                </h2>
+                <p className="mt-2 text-slate-400 text-sm">
+                  Edit the global search banner titles.
+                </p>
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Hero Title</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Hero Title
+                </label>
                 <input
                   type="text"
                   name="heroTitle"
@@ -271,7 +289,9 @@ export function SettingsForms({
                 />
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Hero Subtitle</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Hero Subtitle
+                </label>
                 <textarea
                   name="heroSubtitle"
                   defaultValue={heroSubtitle}
@@ -284,99 +304,224 @@ export function SettingsForms({
             {/* Tab: 4 Cards View */}
             <div className={activeTab === "cards" ? "space-y-6" : "hidden"}>
               <div>
-                <h2 className="font-bold text-white text-xl">4 Navigation Cards Settings</h2>
-                <p className="mt-2 text-slate-400 text-sm">Customize text, action button labels, and link destinations for the 4 core card actions.</p>
+                <h2 className="font-bold text-white text-xl">
+                  4 Navigation Cards Settings
+                </h2>
+                <p className="mt-2 text-slate-400 text-sm">
+                  Customize text, action button labels, and link destinations
+                  for the 4 core card actions.
+                </p>
               </div>
 
               {/* Card 1 */}
               <div className="border-slate-700 border-b pb-6 space-y-4">
-                <h3 className="text-blue-400 font-bold text-sm uppercase tracking-wider">Card 1: Converter Card</h3>
+                <h3 className="text-blue-400 font-bold text-sm uppercase tracking-wider">
+                  Card 1: Converter Card
+                </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="mb-2 block text-xs font-semibold text-slate-300">Card 1 Title</label>
-                    <input type="text" name="card1Title" defaultValue={card1Title} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                    <label className="mb-2 block text-xs font-semibold text-slate-300">
+                      Card 1 Title
+                    </label>
+                    <input
+                      type="text"
+                      name="card1Title"
+                      defaultValue={card1Title}
+                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                    />
                   </div>
                   <div>
-                    <label className="mb-2 block text-xs font-semibold text-slate-300">Card 1 Button Label</label>
-                    <input type="text" name="card1Btn" defaultValue={card1Btn} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                    <label className="mb-2 block text-xs font-semibold text-slate-300">
+                      Card 1 Button Label
+                    </label>
+                    <input
+                      type="text"
+                      name="card1Btn"
+                      defaultValue={card1Btn}
+                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                    />
                   </div>
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-semibold text-slate-300">Card 1 Description</label>
-                  <input type="text" name="card1Desc" defaultValue={card1Desc} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                  <label className="mb-2 block text-xs font-semibold text-slate-300">
+                    Card 1 Description
+                  </label>
+                  <input
+                    type="text"
+                    name="card1Desc"
+                    defaultValue={card1Desc}
+                    className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-semibold text-slate-300">Card 1 Destination (Href)</label>
-                  <input type="text" name="card1Href" defaultValue={card1Href} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                  <label className="mb-2 block text-xs font-semibold text-slate-300">
+                    Card 1 Destination (Href)
+                  </label>
+                  <input
+                    type="text"
+                    name="card1Href"
+                    defaultValue={card1Href}
+                    className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                  />
                 </div>
               </div>
 
               {/* Card 2 */}
               <div className="border-slate-700 border-b pb-6 space-y-4">
-                <h3 className="text-emerald-400 font-bold text-sm uppercase tracking-wider">Card 2: Compare Card</h3>
+                <h3 className="text-emerald-400 font-bold text-sm uppercase tracking-wider">
+                  Card 2: Compare Card
+                </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="mb-2 block text-xs font-semibold text-slate-300">Card 2 Title</label>
-                    <input type="text" name="card2Title" defaultValue={card2Title} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                    <label className="mb-2 block text-xs font-semibold text-slate-300">
+                      Card 2 Title
+                    </label>
+                    <input
+                      type="text"
+                      name="card2Title"
+                      defaultValue={card2Title}
+                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                    />
                   </div>
                   <div>
-                    <label className="mb-2 block text-xs font-semibold text-slate-300">Card 2 Button Label</label>
-                    <input type="text" name="card2Btn" defaultValue={card2Btn} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                    <label className="mb-2 block text-xs font-semibold text-slate-300">
+                      Card 2 Button Label
+                    </label>
+                    <input
+                      type="text"
+                      name="card2Btn"
+                      defaultValue={card2Btn}
+                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                    />
                   </div>
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-semibold text-slate-300">Card 2 Description</label>
-                  <input type="text" name="card2Desc" defaultValue={card2Desc} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                  <label className="mb-2 block text-xs font-semibold text-slate-300">
+                    Card 2 Description
+                  </label>
+                  <input
+                    type="text"
+                    name="card2Desc"
+                    defaultValue={card2Desc}
+                    className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-semibold text-slate-300">Card 2 Destination (Href)</label>
-                  <input type="text" name="card2Href" defaultValue={card2Href} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                  <label className="mb-2 block text-xs font-semibold text-slate-300">
+                    Card 2 Destination (Href)
+                  </label>
+                  <input
+                    type="text"
+                    name="card2Href"
+                    defaultValue={card2Href}
+                    className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                  />
                 </div>
               </div>
 
               {/* Card 3 */}
               <div className="border-slate-700 border-b pb-6 space-y-4">
-                <h3 className="text-purple-400 font-bold text-sm uppercase tracking-wider">Card 3: Rates Card</h3>
+                <h3 className="text-purple-400 font-bold text-sm uppercase tracking-wider">
+                  Card 3: Rates Card
+                </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="mb-2 block text-xs font-semibold text-slate-300">Card 3 Title</label>
-                    <input type="text" name="card3Title" defaultValue={card3Title} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                    <label className="mb-2 block text-xs font-semibold text-slate-300">
+                      Card 3 Title
+                    </label>
+                    <input
+                      type="text"
+                      name="card3Title"
+                      defaultValue={card3Title}
+                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                    />
                   </div>
                   <div>
-                    <label className="mb-2 block text-xs font-semibold text-slate-300">Card 3 Button Label</label>
-                    <input type="text" name="card3Btn" defaultValue={card3Btn} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                    <label className="mb-2 block text-xs font-semibold text-slate-300">
+                      Card 3 Button Label
+                    </label>
+                    <input
+                      type="text"
+                      name="card3Btn"
+                      defaultValue={card3Btn}
+                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                    />
                   </div>
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-semibold text-slate-300">Card 3 Description</label>
-                  <input type="text" name="card3Desc" defaultValue={card3Desc} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                  <label className="mb-2 block text-xs font-semibold text-slate-300">
+                    Card 3 Description
+                  </label>
+                  <input
+                    type="text"
+                    name="card3Desc"
+                    defaultValue={card3Desc}
+                    className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-semibold text-slate-300">Card 3 Destination (Href)</label>
-                  <input type="text" name="card3Href" defaultValue={card3Href} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                  <label className="mb-2 block text-xs font-semibold text-slate-300">
+                    Card 3 Destination (Href)
+                  </label>
+                  <input
+                    type="text"
+                    name="card3Href"
+                    defaultValue={card3Href}
+                    className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                  />
                 </div>
               </div>
 
               {/* Card 4 */}
               <div className="pb-2 space-y-4">
-                <h3 className="text-amber-400 font-bold text-sm uppercase tracking-wider">Card 4: Guides Card</h3>
+                <h3 className="text-amber-400 font-bold text-sm uppercase tracking-wider">
+                  Card 4: Guides Card
+                </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="mb-2 block text-xs font-semibold text-slate-300">Card 4 Title</label>
-                    <input type="text" name="card4Title" defaultValue={card4Title} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                    <label className="mb-2 block text-xs font-semibold text-slate-300">
+                      Card 4 Title
+                    </label>
+                    <input
+                      type="text"
+                      name="card4Title"
+                      defaultValue={card4Title}
+                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                    />
                   </div>
                   <div>
-                    <label className="mb-2 block text-xs font-semibold text-slate-300">Card 4 Button Label</label>
-                    <input type="text" name="card4Btn" defaultValue={card4Btn} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                    <label className="mb-2 block text-xs font-semibold text-slate-300">
+                      Card 4 Button Label
+                    </label>
+                    <input
+                      type="text"
+                      name="card4Btn"
+                      defaultValue={card4Btn}
+                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                    />
                   </div>
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-semibold text-slate-300">Card 4 Description</label>
-                  <input type="text" name="card4Desc" defaultValue={card4Desc} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                  <label className="mb-2 block text-xs font-semibold text-slate-300">
+                    Card 4 Description
+                  </label>
+                  <input
+                    type="text"
+                    name="card4Desc"
+                    defaultValue={card4Desc}
+                    className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                  />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-semibold text-slate-300">Card 4 Destination (Href)</label>
-                  <input type="text" name="card4Href" defaultValue={card4Href} className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500" />
+                  <label className="mb-2 block text-xs font-semibold text-slate-300">
+                    Card 4 Destination (Href)
+                  </label>
+                  <input
+                    type="text"
+                    name="card4Href"
+                    defaultValue={card4Href}
+                    className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 focus:outline-none focus:border-blue-500"
+                  />
                 </div>
               </div>
             </div>
@@ -384,11 +529,17 @@ export function SettingsForms({
             {/* Tab: Exchange Near Me */}
             <div className={activeTab === "nearme" ? "space-y-6" : "hidden"}>
               <div>
-                <h2 className="font-bold text-white text-xl">Currency Exchange Near Me Section</h2>
-                <p className="mt-2 text-slate-400 text-sm">Configure directory header text and description settings.</p>
+                <h2 className="font-bold text-white text-xl">
+                  Currency Exchange Near Me Section
+                </h2>
+                <p className="mt-2 text-slate-400 text-sm">
+                  Configure directory header text and description settings.
+                </p>
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Directory Title</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Directory Title
+                </label>
                 <input
                   type="text"
                   name="directoryTitle"
@@ -397,7 +548,9 @@ export function SettingsForms({
                 />
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Directory Subtitle</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Directory Subtitle
+                </label>
                 <textarea
                   name="directorySubtitle"
                   defaultValue={directorySubtitle}
@@ -408,13 +561,22 @@ export function SettingsForms({
             </div>
 
             {/* Tab: Popular Currency */}
-            <div className={activeTab === "popcurrency" ? "space-y-6" : "hidden"}>
+            <div
+              className={activeTab === "popcurrency" ? "space-y-6" : "hidden"}
+            >
               <div>
-                <h2 className="font-bold text-white text-xl">Popular Currency Section Settings</h2>
-                <p className="mt-2 text-slate-400 text-sm">Customize titles and edit the display order of featured currency badges.</p>
+                <h2 className="font-bold text-white text-xl">
+                  Popular Currency Section Settings
+                </h2>
+                <p className="mt-2 text-slate-400 text-sm">
+                  Customize titles and edit the display order of featured
+                  currency badges.
+                </p>
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Section Title</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Section Title
+                </label>
                 <input
                   type="text"
                   name="popcurrencyTitle"
@@ -423,7 +585,9 @@ export function SettingsForms({
                 />
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Section Subtitle</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Section Subtitle
+                </label>
                 <textarea
                   name="popcurrencySubtitle"
                   defaultValue={popcurrencySubtitle}
@@ -432,43 +596,142 @@ export function SettingsForms({
                 />
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Featured Currencies (Comma-separated codes)</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Featured Currencies (Comma-separated codes)
+                </label>
                 <input
                   type="text"
                   name="popularCurrencies"
                   defaultValue={popularCurrencies}
                   className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-slate-100 transition focus:border-blue-500 focus:outline-none"
                 />
-                <p className="mt-1 text-slate-500 text-xs">Specify exactly 16 codes (e.g. USD,EUR,JPY,GBP) for optimal layout grid alignment.</p>
+                <p className="mt-1 text-slate-500 text-xs">
+                  Specify exactly 16 codes (e.g. USD,EUR,JPY,GBP) for optimal
+                  layout grid alignment.
+                </p>
               </div>
             </div>
 
             {/* Tab: Most Popular Currency Exchange */}
-            <div className={activeTab === "pop_exchange" ? "space-y-6" : "hidden"}>
+            <div
+              className={activeTab === "pop_exchange" ? "space-y-6" : "hidden"}
+            >
               <div>
-                <h2 className="font-bold text-white text-xl">Most Popular Currency Exchange Settings</h2>
-                <p className="mt-2 text-slate-400 text-sm">Configure pipe-separated values to specify SEO pairs and custom display names for Block 2 grid.</p>
+                <h2 className="font-bold text-white text-xl">
+                  Most Popular Currency Exchange Settings
+                </h2>
+                <p className="mt-2 text-slate-400 text-sm">
+                  Configure both currency exchange grids displayed on the
+                  homepage.
+                </p>
               </div>
-              <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Exchange Pairs Matrix (Comma and Pipe-separated)</label>
-                <textarea
-                  name="popularPairs"
-                  defaultValue={popularPairs}
-                  rows={6}
-                  className="w-full resize-none font-mono text-sm rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-slate-100 transition focus:border-blue-500 focus:outline-none"
-                />
-                <p className="mt-1 text-slate-500 text-xs">Example: USD to INR | US dollar to Rupees, USD to GBP | US dollars to Pounds</p>
+              <div className="space-y-6">
+                {/* Section 1 customization */}
+                <div className="rounded-lg border border-slate-700 bg-slate-800/40 p-4 space-y-4">
+                  <h3 className="text-sm font-bold text-blue-400">
+                    1. Most Popular Currency Pairs Section
+                  </h3>
+                  <div>
+                    <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                      Section Title
+                    </label>
+                    <input
+                      type="text"
+                      name="popularPairsTitle"
+                      defaultValue={popularPairsTitle}
+                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 transition focus:border-blue-500 focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                      Section Subtitle
+                    </label>
+                    <input
+                      type="text"
+                      name="popularPairsSubtitle"
+                      defaultValue={popularPairsSubtitle}
+                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 transition focus:border-blue-500 focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                      Exchange Pairs Matrix (Comma and Pipe-separated)
+                    </label>
+                    <textarea
+                      name="popularPairsStandard"
+                      defaultValue={popularPairsStandard}
+                      rows={4}
+                      className="w-full resize-none font-mono text-sm rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-slate-100 transition focus:border-blue-500 focus:outline-none"
+                    />
+                    <p className="mt-1 text-slate-500 text-xs">
+                      Controls the grid of currency cards displayed under the
+                      main pairs section.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Section 2 customization */}
+                <div className="rounded-lg border border-slate-700 bg-slate-800/40 p-4 space-y-4">
+                  <h3 className="text-sm font-bold text-blue-400">
+                    2. Most Popular Currency Exchange Globally Section
+                  </h3>
+                  <div>
+                    <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                      Section Title
+                    </label>
+                    <input
+                      type="text"
+                      name="popularPairsGlobalTitle"
+                      defaultValue={popularPairsGlobalTitle}
+                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 transition focus:border-blue-500 focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                      Section Subtitle
+                    </label>
+                    <input
+                      type="text"
+                      name="popularPairsGlobalSubtitle"
+                      defaultValue={popularPairsGlobalSubtitle}
+                      className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-slate-100 transition focus:border-blue-500 focus:outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                      Exchange Pairs Matrix (Comma and Pipe-separated)
+                    </label>
+                    <textarea
+                      name="popularPairs"
+                      defaultValue={popularPairs}
+                      rows={4}
+                      className="w-full resize-none font-mono text-sm rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-slate-100 transition focus:border-blue-500 focus:outline-none"
+                    />
+                    <p className="mt-1 text-slate-500 text-xs">
+                      Controls the grid of currency cards displayed under the
+                      global exchange section.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Tab: Live Exchange Range */}
-            <div className={activeTab === "live_rates" ? "space-y-6" : "hidden"}>
+            <div
+              className={activeTab === "live_rates" ? "space-y-6" : "hidden"}
+            >
               <div>
-                <h2 className="font-bold text-white text-xl">Live Exchange Rates Section</h2>
-                <p className="mt-2 text-slate-400 text-sm">Edit rates widget headers and descriptions.</p>
+                <h2 className="font-bold text-white text-xl">
+                  Live Exchange Rates Section
+                </h2>
+                <p className="mt-2 text-slate-400 text-sm">
+                  Edit rates widget headers and descriptions.
+                </p>
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Section Title</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Section Title
+                </label>
                 <input
                   type="text"
                   name="liveRatesTitle"
@@ -477,7 +740,9 @@ export function SettingsForms({
                 />
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Section Subtitle</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Section Subtitle
+                </label>
                 <textarea
                   name="liveRatesSubtitle"
                   defaultValue={liveRatesSubtitle}
@@ -490,11 +755,18 @@ export function SettingsForms({
             {/* Tab: 8 Fascinating Currency */}
             <div className={activeTab === "facts" ? "space-y-6" : "hidden"}>
               <div>
-                <h2 className="font-bold text-white text-xl">Fascinating Currency Facts Settings</h2>
-                <p className="mt-2 text-slate-400 text-sm">Customize the title, descriptions, and individual facts content list.</p>
+                <h2 className="font-bold text-white text-xl">
+                  Fascinating Currency Facts Settings
+                </h2>
+                <p className="mt-2 text-slate-400 text-sm">
+                  Customize the title, descriptions, and individual facts
+                  content list.
+                </p>
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Facts Title</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Facts Title
+                </label>
                 <input
                   type="text"
                   name="factsTitle"
@@ -503,7 +775,9 @@ export function SettingsForms({
                 />
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Facts Subtitle</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Facts Subtitle
+                </label>
                 <textarea
                   name="factsSubtitle"
                   defaultValue={factsSubtitle}
@@ -512,25 +786,37 @@ export function SettingsForms({
                 />
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Facts Content (Icon | Title | Description per line)</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Facts Content (Icon | Title | Description per line)
+                </label>
                 <textarea
                   name="factsContent"
                   defaultValue={factsContent}
                   rows={8}
                   className="w-full font-mono text-sm rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-slate-100 transition focus:border-blue-500 focus:outline-none"
                 />
-                <p className="mt-1 text-slate-500 text-xs">Example: 🌎 | Largest Financial Market | More than $7 trillion is traded...</p>
+                <p className="mt-1 text-slate-500 text-xs">
+                  Example: 🌎 | Largest Financial Market | More than $7 trillion
+                  is traded...
+                </p>
               </div>
             </div>
 
             {/* Tab: 8 Common Mistakes */}
             <div className={activeTab === "mistakes" ? "space-y-6" : "hidden"}>
               <div>
-                <h2 className="font-bold text-white text-xl">Currency Exchange Mistakes Settings</h2>
-                <p className="mt-2 text-slate-400 text-sm">Customize the title, descriptions, and individual mistakes to avoid.</p>
+                <h2 className="font-bold text-white text-xl">
+                  Currency Exchange Mistakes Settings
+                </h2>
+                <p className="mt-2 text-slate-400 text-sm">
+                  Customize the title, descriptions, and individual mistakes to
+                  avoid.
+                </p>
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Mistakes Section Title</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Mistakes Section Title
+                </label>
                 <input
                   type="text"
                   name="mistakesTitle"
@@ -539,7 +825,9 @@ export function SettingsForms({
                 />
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Mistakes Section Subtitle</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Mistakes Section Subtitle
+                </label>
                 <textarea
                   name="mistakesSubtitle"
                   defaultValue={mistakesSubtitle}
@@ -548,25 +836,37 @@ export function SettingsForms({
                 />
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Mistakes Content (Title | Description per line)</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Mistakes Content (Title | Description per line)
+                </label>
                 <textarea
                   name="mistakesContent"
                   defaultValue={mistakesContent}
                   rows={8}
                   className="w-full font-mono text-sm rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-slate-100 transition focus:border-blue-500 focus:outline-none"
                 />
-                <p className="mt-1 text-slate-500 text-xs">Example: Exchanging Money at Airports | Airport exchange counters often...</p>
+                <p className="mt-1 text-slate-500 text-xs">
+                  Example: Exchanging Money at Airports | Airport exchange
+                  counters often...
+                </p>
               </div>
             </div>
 
             {/* Tab: Browse Countries by Region */}
             <div className={activeTab === "regions" ? "space-y-6" : "hidden"}>
               <div>
-                <h2 className="font-bold text-white text-xl">Browse Countries by Region Settings</h2>
-                <p className="mt-2 text-slate-400 text-sm">Configure section header texts representing region directories.</p>
+                <h2 className="font-bold text-white text-xl">
+                  Browse Countries by Region Settings
+                </h2>
+                <p className="mt-2 text-slate-400 text-sm">
+                  Configure section header texts representing region
+                  directories.
+                </p>
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Section Title</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Section Title
+                </label>
                 <input
                   type="text"
                   name="regionsTitle"
@@ -575,7 +875,9 @@ export function SettingsForms({
                 />
               </div>
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Section Subtitle</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Section Subtitle
+                </label>
                 <textarea
                   name="regionsSubtitle"
                   defaultValue={regionsSubtitle}
@@ -588,25 +890,38 @@ export function SettingsForms({
             {/* Tab: Google AdSense Settings */}
             <div className={activeTab === "adsense" ? "space-y-6" : "hidden"}>
               <div>
-                <h2 className="font-bold text-white text-xl">Google AdSense & Ad Management</h2>
-                <p className="mt-2 text-slate-400 text-sm">Toggle AdSense statuses, update Publisher IDs, and paste global tracking script codes.</p>
+                <h2 className="font-bold text-white text-xl">
+                  Google AdSense & Ad Management
+                </h2>
+                <p className="mt-2 text-slate-400 text-sm">
+                  Toggle AdSense statuses, update Publisher IDs, and paste
+                  global tracking script codes.
+                </p>
               </div>
 
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">AdSense Status</label>
+                  <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                    AdSense Status
+                  </label>
                   <select
-                     name="adsenseEnabled"
-                     defaultValue={adsenseEnabled}
-                     className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-slate-100 transition focus:border-blue-500 focus:outline-none"
+                    name="adsenseEnabled"
+                    defaultValue={adsenseEnabled}
+                    className="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-2.5 text-slate-100 transition focus:border-blue-500 focus:outline-none"
                   >
-                    <option value="false">Disabled (Show Placeholder Banners)</option>
-                    <option value="true">Enabled (Render Active Adsense Tags)</option>
+                    <option value="false">
+                      Disabled (Show Placeholder Banners)
+                    </option>
+                    <option value="true">
+                      Enabled (Render Active Adsense Tags)
+                    </option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Google Publisher ID</label>
+                  <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                    Google Publisher ID
+                  </label>
                   <input
                     type="text"
                     name="adsenseClientId"
@@ -618,7 +933,9 @@ export function SettingsForms({
               </div>
 
               <div>
-                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">Global Header Script / Ad Code</label>
+                <label className="mb-2 block font-semibold text-slate-300 text-xs uppercase">
+                  Global Header Script / Ad Code
+                </label>
                 <textarea
                   name="adsenseGlobalCode"
                   defaultValue={adsenseGlobalCode}
@@ -658,51 +975,138 @@ export function SettingsForms({
             )}
             {activeTab !== "nearme" && (
               <>
-                <input type="hidden" name="directoryTitle" value={directoryTitle} />
-                <input type="hidden" name="directorySubtitle" value={directorySubtitle} />
+                <input
+                  type="hidden"
+                  name="directoryTitle"
+                  value={directoryTitle}
+                />
+                <input
+                  type="hidden"
+                  name="directorySubtitle"
+                  value={directorySubtitle}
+                />
               </>
             )}
             {activeTab !== "popcurrency" && (
               <>
-                <input type="hidden" name="popcurrencyTitle" value={popcurrencyTitle} />
-                <input type="hidden" name="popcurrencySubtitle" value={popcurrencySubtitle} />
-                <input type="hidden" name="popularCurrencies" value={popularCurrencies} />
+                <input
+                  type="hidden"
+                  name="popcurrencyTitle"
+                  value={popcurrencyTitle}
+                />
+                <input
+                  type="hidden"
+                  name="popcurrencySubtitle"
+                  value={popcurrencySubtitle}
+                />
+                <input
+                  type="hidden"
+                  name="popularCurrencies"
+                  value={popularCurrencies}
+                />
               </>
             )}
             {activeTab !== "pop_exchange" && (
-              <input type="hidden" name="popularPairs" value={popularPairs} />
+              <>
+                <input type="hidden" name="popularPairs" value={popularPairs} />
+                <input
+                  type="hidden"
+                  name="popularPairsStandard"
+                  value={popularPairsStandard}
+                />
+                <input
+                  type="hidden"
+                  name="popularPairsTitle"
+                  value={popularPairsTitle}
+                />
+                <input
+                  type="hidden"
+                  name="popularPairsSubtitle"
+                  value={popularPairsSubtitle}
+                />
+                <input
+                  type="hidden"
+                  name="popularPairsGlobalTitle"
+                  value={popularPairsGlobalTitle}
+                />
+                <input
+                  type="hidden"
+                  name="popularPairsGlobalSubtitle"
+                  value={popularPairsGlobalSubtitle}
+                />
+              </>
             )}
             {activeTab !== "live_rates" && (
               <>
-                <input type="hidden" name="liveRatesTitle" value={liveRatesTitle} />
-                <input type="hidden" name="liveRatesSubtitle" value={liveRatesSubtitle} />
+                <input
+                  type="hidden"
+                  name="liveRatesTitle"
+                  value={liveRatesTitle}
+                />
+                <input
+                  type="hidden"
+                  name="liveRatesSubtitle"
+                  value={liveRatesSubtitle}
+                />
               </>
             )}
             {activeTab !== "facts" && (
               <>
                 <input type="hidden" name="factsTitle" value={factsTitle} />
-                <input type="hidden" name="factsSubtitle" value={factsSubtitle} />
+                <input
+                  type="hidden"
+                  name="factsSubtitle"
+                  value={factsSubtitle}
+                />
                 <input type="hidden" name="factsContent" value={factsContent} />
               </>
             )}
             {activeTab !== "mistakes" && (
               <>
-                <input type="hidden" name="mistakesTitle" value={mistakesTitle} />
-                <input type="hidden" name="mistakesSubtitle" value={mistakesSubtitle} />
-                <input type="hidden" name="mistakesContent" value={mistakesContent} />
+                <input
+                  type="hidden"
+                  name="mistakesTitle"
+                  value={mistakesTitle}
+                />
+                <input
+                  type="hidden"
+                  name="mistakesSubtitle"
+                  value={mistakesSubtitle}
+                />
+                <input
+                  type="hidden"
+                  name="mistakesContent"
+                  value={mistakesContent}
+                />
               </>
             )}
             {activeTab !== "regions" && (
               <>
                 <input type="hidden" name="regionsTitle" value={regionsTitle} />
-                <input type="hidden" name="regionsSubtitle" value={regionsSubtitle} />
+                <input
+                  type="hidden"
+                  name="regionsSubtitle"
+                  value={regionsSubtitle}
+                />
               </>
             )}
             {activeTab !== "adsense" && (
               <>
-                <input type="hidden" name="adsenseEnabled" value={adsenseEnabled} />
-                <input type="hidden" name="adsenseClientId" value={adsenseClientId} />
-                <input type="hidden" name="adsenseGlobalCode" value={adsenseGlobalCode} />
+                <input
+                  type="hidden"
+                  name="adsenseEnabled"
+                  value={adsenseEnabled}
+                />
+                <input
+                  type="hidden"
+                  name="adsenseClientId"
+                  value={adsenseClientId}
+                />
+                <input
+                  type="hidden"
+                  name="adsenseGlobalCode"
+                  value={adsenseGlobalCode}
+                />
               </>
             )}
 
