@@ -467,10 +467,9 @@ export function PopularPairs({
 
       <div
         className={cn(
-          "grid gap-5",
           variant === "sparkline"
-            ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-            : "grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8"
+            ? "columns-1 sm:columns-2 lg:columns-3 gap-5"
+            : "grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-5"
         )}
       >
         {pairs.map((pair, index) => {
@@ -490,7 +489,7 @@ export function PopularPairs({
               <Link
                 key={`${pair.from}-${pair.to}-${index}`}
                 href={pair.href}
-                className="group block"
+                className="group inline-block w-full break-inside-avoid mb-5"
               >
                 <Card className="h-full overflow-hidden border border-border bg-card/40 transition-all duration-300 hover:border-primary/20 hover:bg-card hover:shadow-md">
                   <CardContent className="flex h-full flex-col justify-between gap-4 p-4">
