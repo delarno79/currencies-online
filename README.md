@@ -3,7 +3,7 @@
 > **World's Currency Directory & Exchange Rates Database**  
 > A full-featured, SEO-optimized currency information platform built with Next.js 16.
 
-[![Next.js](https://img.shields.io/badge/Next.js-16.2.6-black?logo=next.js)](https://nextjs.org)
+[![Next.js](https://img.shields.io/badge/Next.js-16.4.1-black?logo=next.js)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)](https://typescriptlang.org)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-06B6D4?logo=tailwindcss)](https://tailwindcss.com)
@@ -29,7 +29,7 @@ Currencies.global is a directory-style website providing:
 
 | Layer | Technology |
 |---|---|
-| Framework | [Next.js 16.2.6](https://nextjs.org) (App Router, Turbopack) |
+| Framework | [Next.js 16.4.1](https://nextjs.org) (App Router, Webpack production builds) |
 | Language | TypeScript 5 |
 | UI Library | [shadcn/ui](https://ui.shadcn.com) + [Base UI](https://base-ui.com) |
 | Styling | Tailwind CSS v4 |
@@ -87,7 +87,7 @@ currencies.online/
 ├── components/
 │   └── ui/                   # shadcn/ui components
 ├── public/
-├── next.config.ts
+├── next.config.mjs
 ├── biome.json
 └── package.json
 ```
@@ -253,10 +253,18 @@ pnpm build
 pnpm start
 ```
 
-> The `cacheComponents: true` flag in `next.config.ts` enables Next.js 16's Cache Components feature, which provides ISR-like caching without the need for explicit `revalidate` values on each page.
+> The `cacheComponents: true` flag in `next.config.mjs` enables Next.js 16's Cache Components feature, which provides ISR-like caching without the need for explicit `revalidate` values on each page.
 
 ---
 
 ## License
 
 @Currencies.global Private project — all rights reserved.
+
+### Hostinger build requirements
+
+Use Node.js 24, `pnpm install --frozen-lockfile`, `pnpm run build`, and output directory `.next`. The build script explicitly selects Webpack. The JavaScript `next.config.mjs` avoids TypeScript config transpilation through the SWC native/WASM fallback on older GLIBC hosts. Next.js can automatically load its matching WASM compiler when the native compiler is incompatible.
+
+Set `NEXT_PUBLIC_SANITY_PROJECT_ID=f3nk01ot` and `NEXT_PUBLIC_SANITY_DATASET=production` in the build environment (see `.env.example`). These are public identifiers, not credentials. CI accepts repository variables or the existing secret and defaults to the verified public project ID so Dependabot builds work without secret access. No Sanity write token is required for the public content build. Never put tokens in `NEXT_PUBLIC_*` variables.
+
+This Hostinger app currently uses uploaded source archives: a GitHub commit alone does not deploy it. Upload source from the tested commit, exclude `.git`, `node_modules`, `.next`, and local environment files, and verify the deployment log shows `next build --webpack`.

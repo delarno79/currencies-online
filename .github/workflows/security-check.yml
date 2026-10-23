@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 20
 
     env:
-      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ vars.NEXT_PUBLIC_SANITY_PROJECT_ID || secrets.NEXT_PUBLIC_SANITY_PROJECT_ID || 'f3nk01ot' }}
       NEXT_PUBLIC_SANITY_DATASET: production
 
     steps:
@@ -33,14 +33,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
           cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Audit production dependencies
-        run: pnpm audit --prod --audit-level high
+      - name: Audit all dependencies
+        run: pnpm audit --audit-level high
 
       - name: Typecheck
         run: pnpm typecheck
