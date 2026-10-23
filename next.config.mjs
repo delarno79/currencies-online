@@ -3,13 +3,13 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   cacheComponents: true,
-  async redirects() {
-    // Preserve public URLs from the previously deployed release.
+  async rewrites() {
+    // Serve legacy URLs internally to avoid loops with previously cached redirects.
     return [
-      { source: "/currency-converter", destination: "/converter", permanent: true },
-      { source: "/currency-exchange-rates", destination: "/exchange-rates", permanent: true },
-      { source: "/currency-exchange-rates/:pair", destination: "/exchange-rates/:pair", permanent: true },
-      { source: "/country/:id-currency", destination: "/country/:id", permanent: true },
+      { source: "/currency-converter", destination: "/converter" },
+      { source: "/currency-exchange-rates", destination: "/exchange-rates" },
+      { source: "/currency-exchange-rates/:pair", destination: "/exchange-rates/:pair" },
+      { source: "/country/:id-currency", destination: "/country/:id" },
     ]
   },
   images: {
