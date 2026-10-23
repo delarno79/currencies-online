@@ -1,7 +1,10 @@
+
 name: Security and build checks
 
 on:
   pull_request:
+  push:
+    branches: [main]
   workflow_dispatch:
   schedule:
     - cron: '17 8 * * 1'
@@ -13,25 +16,34 @@ jobs:
   audit-and-build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+
+    env:
+      NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
+      NEXT_PUBLIC_SANITY_DATASET: production
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
         with:
           version: 10
-      - uses: actions/setup-node@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
           cache: pnpm
-      - run: pnpm install --frozen-lockfile
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
       - name: Audit production dependencies
         run: pnpm audit --prod --audit-level high
+
       - name: Typecheck
         run: pnpm typecheck
+
       - name: Build
         run: pnpm build
-- name: Build
-  run: pnpm build
-  env:
-    NEXT_PUBLIC_SANITY_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_SANITY_PROJECT_ID }}
-    NEXT_PUBLIC_SANITY_DATASET: production
-    
